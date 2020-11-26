@@ -7,4 +7,7 @@
     <color name="grey">#f0f0f0</color>
     <color name="primaryText">#212121</color>
     <color name="secondaryText">#757575</color>
+    <color name="error">#CF6679</color>
+    <color name="danger">#CF6679</color>
+    <color name="delete_button_pressed">#d32f2f</color>
 </resources>

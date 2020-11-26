@@ -4,4 +4,6 @@
     <dimen name="spacing_10">10dp</dimen>
     <dimen name="spacing_30">30dp</dimen>
     <dimen name="nav_drawer_horizontal_margin">16dp</dimen>
+    <dimen name="spacing_16">16dp</dimen>
+    <dimen name="spacing_32">32dp</dimen>
 </resources>
