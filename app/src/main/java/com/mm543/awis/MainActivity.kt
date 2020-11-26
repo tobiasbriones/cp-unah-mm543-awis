@@ -28,6 +28,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.action_shopping_cart -> {
+                // TODO
+                true
+            }
             R.id.action_settings -> {
                 // TODO
                 true

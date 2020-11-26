@@ -15,4 +15,5 @@
     <string name="item_settings">Configuración</string>
     <string name="item_about">Sobre</string>
     <string name="item_logout">Salir</string>
+    <string name="item_shopping_cart">Carrito de compras</string>
 </resources>
