@@ -9,11 +9,11 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/txt_app_name"
+        app:layout_constraintBottom_toBottomOf="@+id/app_name_text"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txt_app_name"
+        android:id="@+id/app_name_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -21,9 +21,9 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:paddingBottom="16dp"
-        android:text="AWIS"
-        android:textSize="24sp"
+        android:text="@string/app_name"
         android:textColor="@color/primaryText"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -34,13 +34,14 @@
         android:id="@+id/user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_32"
         android:background="?android:attr/selectableItemBackground"
-        android:paddingBottom="@dimen/spacing_10"
+        android:clickable="true"
         app:layout_constraintTop_toBottomOf="@id/header"
         tools:ignore="MissingConstraints">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/iv_nav_user"
+            android:id="@+id/user_photo"
             android:layout_width="@dimen/spacing_30"
             android:layout_height="@dimen/spacing_30"
             android:layout_marginStart="@dimen/nav_drawer_horizontal_margin"
@@ -53,7 +54,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_nav_user"
+            android:id="@+id/user_name_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -62,15 +63,14 @@
             android:ellipsize="end"
             android:textColor="@color/secondaryText"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@id/iv_nav_user"
+            app:layout_constraintBottom_toBottomOf="@id/user_photo"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/iv_nav_user"
-            app:layout_constraintTop_toTopOf="@id/iv_nav_user"
-            tools:text="Usuario X" />
+            app:layout_constraintStart_toEndOf="@id/user_photo"
+            app:layout_constraintTop_toTopOf="@id/user_photo" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_side_nav_options"
+        android:id="@+id/items_recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"

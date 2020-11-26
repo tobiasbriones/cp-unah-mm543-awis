@@ -11,6 +11,7 @@
 
 package com.mm543.awis.ui.main.nav
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,9 +21,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mm543.awis.MainActivity
 import com.mm543.awis.R
+import com.mm543.awis.ui.user.UserActivity
 import kotlinx.android.synthetic.main.fragment_nav_drawer.*
 
-class NavDrawerFragment : Fragment() {
+class NavDrawerFragment : Fragment(), View.OnClickListener {
 
     private val navDrawerAdapter: NavDrawerAdapter = NavDrawerAdapter { position, item ->
         onItemClick(position, item)
@@ -44,12 +46,19 @@ class NavDrawerFragment : Fragment() {
         setUpViews()
     }
 
-    private fun setUpViews() {
-        rv_side_nav_options?.layoutManager =
-            LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-        rv_side_nav_options?.adapter = navDrawerAdapter
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.user -> startUserActivity()
+        }
+    }
 
-        tv_nav_user.text = "User X"
+    private fun setUpViews() {
+        items_recycler?.layoutManager =
+            LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
+        items_recycler?.adapter = navDrawerAdapter
+
+        user_name_text.text = "User X"
+        user.setOnClickListener(this)
         navDrawerAdapter.setNavItemsData(prepareNavItems())
     }
 
@@ -63,6 +72,12 @@ class NavDrawerFragment : Fragment() {
         menuItemsList.add(NavDrawerItem(6, "Configuración", R.drawable.ic_baseline_settings_24))
         menuItemsList.add(NavDrawerItem(7, "Sobre AWIS", R.drawable.ic_baseline_info_24))
         return menuItemsList
+    }
+
+    private fun startUserActivity() {
+        val intent = Intent(activity, UserActivity::class.java)
+
+        startActivity(intent)
     }
 
 }
