@@ -6,3 +6,8 @@ data class BusinessEntity(
     val businessEntityId: Int,
     val modifiedDate: LocalDateTime
 )
+
+data class BusinessEntityContact(
+    val businessEntity: BusinessEntity,
+    val person: Person
+)

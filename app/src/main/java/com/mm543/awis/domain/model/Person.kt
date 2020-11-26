@@ -9,3 +9,9 @@ data class Person(
     val middleName: String,
     val lastName: String
 )
+
+data class PersonPhone(
+    val businessEntity: BusinessEntity,
+    val phoneNumberType: PhoneNumberType,
+    val phoneNumber: String
+)
