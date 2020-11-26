@@ -16,4 +16,6 @@
     <string name="item_about">Sobre</string>
     <string name="item_logout">Salir</string>
     <string name="item_shopping_cart">Carrito de compras</string>
+    <string name="about_awis">Sobre AWIS</string>
+    <string name="ok">Ok</string>
 </resources>
