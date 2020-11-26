@@ -3,11 +3,14 @@ package com.mm543.awis
 import android.os.Bundle
 import android.view.Gravity
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.DialogFragment
+import com.mm543.awis.ui.main.AboutDialog
+import com.mm543.awis.ui.main.SignInDialog
 import com.mm543.awis.ui.main.nav.NavDrawerItem
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,12 +20,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         navigation = findViewById(R.id.drawer)
+
+        setSupportActionBar(findViewById(R.id.toolbar))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater: MenuInflater = menuInflater
-
-        inflater.inflate(R.menu.menu_main, menu)
+        menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
@@ -37,7 +40,11 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.action_about -> {
-                // TODO
+                showAboutDialog()
+                true
+            }
+            R.id.action_login -> {
+                showSignInDialog()
                 true
             }
             R.id.action_logout -> {
@@ -46,6 +53,16 @@ class MainActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showSignInDialog() {
+        val newFragment: DialogFragment = SignInDialog()
+        newFragment.show(supportFragmentManager, "dialog")
+    }
+
+    private fun showAboutDialog() {
+        val newFragment: AboutDialog = AboutDialog()
+        newFragment.show(supportFragmentManager, "dialog")
     }
 
     fun closeDrawer(item: NavDrawerItem) {
