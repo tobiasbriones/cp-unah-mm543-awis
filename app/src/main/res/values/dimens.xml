@@ -1,5 +1,6 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="spacing_4">4dp</dimen>
     <dimen name="spacing_10">10dp</dimen>
     <dimen name="spacing_30">30dp</dimen>
     <dimen name="nav_drawer_horizontal_margin">16dp</dimen>

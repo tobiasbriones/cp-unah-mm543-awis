@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/spacing_10"
+    android:paddingBottom="@dimen/spacing_4"
     android:background="?android:attr/selectableItemBackground">
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -24,16 +24,15 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
         android:ellipsize="end"
-        android:textColor="@color/black"
+        android:textColor="@color/secondaryText"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@id/iv_nav_option"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/iv_nav_option"
         app:layout_constraintTop_toTopOf="@id/iv_nav_option"
         tools:text="Rate" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

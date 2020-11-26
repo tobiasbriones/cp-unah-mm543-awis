@@ -23,6 +23,7 @@
         android:paddingBottom="16dp"
         android:text="AWIS"
         android:textSize="24sp"
+        android:textColor="@color/primaryText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -56,18 +57,16 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
             android:ellipsize="end"
-            android:textColor="@color/black"
+            android:textColor="@color/secondaryText"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/iv_nav_user"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_nav_user"
             app:layout_constraintTop_toTopOf="@id/iv_nav_user"
             tools:text="Usuario X" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
