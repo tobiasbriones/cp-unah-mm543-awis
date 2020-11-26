@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.DialogFragment
 import com.mm543.awis.ui.main.AboutDialog
+import com.mm543.awis.ui.main.PayWithCreditCardDialog
 import com.mm543.awis.ui.main.SignInDialog
 import com.mm543.awis.ui.main.nav.NavDrawerItem
 
@@ -77,12 +78,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showSignInDialog() {
-        val newFragment: DialogFragment = SignInDialog()
+        val newFragment = SignInDialog()
         newFragment.show(supportFragmentManager, "dialog")
     }
 
     private fun showAboutDialog() {
-        val newFragment: AboutDialog = AboutDialog()
+        val newFragment = AboutDialog()
+        newFragment.show(supportFragmentManager, "dialog")
+    }
+
+    private fun showPayDialog() {
+        val newFragment = PayWithCreditCardDialog()
         newFragment.show(supportFragmentManager, "dialog")
     }
 

@@ -26,4 +26,11 @@
     <string name="company_field">Company</string>
     <string name="danger_zone">Danger zone</string>
     <string name="delete_account">Delete account</string>
+    <string name="pay">Pay</string>
+    <string name="back">Back</string>
+    <string name="payment_information">Payment information</string>
+    <string name="enter_credit_card">Enter credit card</string>
+    <string name="credit_card_number_field">Credit card number *</string>
+    <string name="credit_card_expiration_field">Expiration (MM/YY) *</string>
+    <string name="credit_card_code_field">Card code (CVV) *</string>
 </resources>
