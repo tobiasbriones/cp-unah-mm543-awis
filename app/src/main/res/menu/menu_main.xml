@@ -1,10 +1,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.mm543.awis.ui.main.MainActivity">
+    tools:context="com.mm543.awis.MainActivity">
     <item
-        android:id="@+id/action_sign_in"
+        android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:title="Entrar"
+        android:title="@string/item_settings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_about"
+        android:orderInCategory="200"
+        android:title="@string/item_about"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="300"
+        android:title="@string/item_logout"
         app:showAsAction="never" />
 </menu>

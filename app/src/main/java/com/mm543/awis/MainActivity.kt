@@ -11,7 +11,7 @@ import com.mm543.awis.ui.main.nav.NavDrawerItem
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var navigation: DrawerLayout
+    private lateinit var navigation: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +28,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_sign_in -> {
+            R.id.action_settings -> {
+                // TODO
+                true
+            }
+            R.id.action_about -> {
+                // TODO
+                true
+            }
+            R.id.action_logout -> {
                 // TODO
                 true
             }

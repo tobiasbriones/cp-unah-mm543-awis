@@ -12,4 +12,7 @@
     <string name="signin">Entrar</string>
     <string name="cancel">Cancelar</string>
     <string name="search_product">Search product</string>
+    <string name="item_settings">Configuración</string>
+    <string name="item_about">Sobre</string>
+    <string name="item_logout">Salir</string>
 </resources>
