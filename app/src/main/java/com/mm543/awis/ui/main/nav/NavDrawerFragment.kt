@@ -45,13 +45,12 @@ class NavDrawerFragment : Fragment() {
     private fun prepareNavItems(): List<NavDrawerItem> {
         val menuItemsList = ArrayList<NavDrawerItem>()
 
-        menuItemsList.add(NavDrawerItem(1, "Categorías", R.drawable.ic_launcher_background))
-        menuItemsList.add(NavDrawerItem(2, "Puntos de ventas", R.drawable.ic_launcher_background))
-        menuItemsList.add(NavDrawerItem(3, "Notificaciones", R.drawable.ic_launcher_background))
-        menuItemsList.add(NavDrawerItem(4, "Cuenta", R.drawable.ic_launcher_background))
-        menuItemsList.add(NavDrawerItem(5, "Método de pago", R.drawable.ic_launcher_background))
-        menuItemsList.add(NavDrawerItem(6, "Configuración", R.drawable.ic_launcher_background))
-        menuItemsList.add(NavDrawerItem(7, "Sobre AWIS", R.drawable.ic_launcher_background))
+        menuItemsList.add(NavDrawerItem(1, "Categorías", R.drawable.ic_baseline_category_24))
+        menuItemsList.add(NavDrawerItem(2, "Puntos de ventas", R.drawable.ic_baseline_store_24))
+        menuItemsList.add(NavDrawerItem(3, "Notificaciones", R.drawable.ic_baseline_notifications_24))
+        menuItemsList.add(NavDrawerItem(5, "Método de pago", R.drawable.ic_baseline_payment_24))
+        menuItemsList.add(NavDrawerItem(6, "Configuración", R.drawable.ic_baseline_settings_24))
+        menuItemsList.add(NavDrawerItem(7, "Sobre AWIS", R.drawable.ic_baseline_info_24))
         return menuItemsList
     }
 
