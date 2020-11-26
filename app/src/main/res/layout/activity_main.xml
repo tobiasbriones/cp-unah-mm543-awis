@@ -26,7 +26,7 @@
                     android:layout_height="?attr/actionBarSize"
                     android:background="?attr/colorPrimary"
                     app:menu="@menu/menu_main"
-                    app:navigationIcon="@drawable/ic_toolbar_logo"
+                    app:navigationIcon="@drawable/ic_action_menu"
                     app:popupTheme="@style/AppTheme.PopupOverlay"
                     app:title="@string/app_name" />
 

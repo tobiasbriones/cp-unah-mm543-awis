@@ -33,6 +33,8 @@ class MainActivity : AppCompatActivity() {
         navigation = findViewById(R.id.drawer)
 
         setSupportActionBar(findViewById(R.id.toolbar))
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -42,6 +44,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            android.R.id.home -> {
+                showNavigation()
+                true
+            }
             R.id.action_shopping_cart -> {
                 // TODO
                 true
@@ -64,6 +70,10 @@ class MainActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showNavigation() {
+        navigation.open()
     }
 
     private fun showSignInDialog() {
