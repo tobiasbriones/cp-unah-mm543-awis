@@ -18,4 +18,5 @@
     <string name="item_shopping_cart">Carrito de compras</string>
     <string name="about_awis">Sobre AWIS</string>
     <string name="ok">Ok</string>
+    <string name="item_login">Entrar</string>
 </resources>

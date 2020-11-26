@@ -19,8 +19,13 @@
         android:title="@string/item_about"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_logout"
+        android:id="@+id/action_login"
         android:orderInCategory="300"
+        android:title="@string/item_login"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="400"
         android:title="@string/item_logout"
         app:showAsAction="never" />
 </menu>
