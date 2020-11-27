@@ -14,18 +14,16 @@ package com.mm543.awis.repository
 import com.mm543.awis.domain.model.Product
 import com.mm543.awis.domain.model.ProductModel
 import com.mm543.awis.domain.repository.ProductRepository
-import com.mm543.awis.domain.repository.ReadOnlyRepository
 import java.time.LocalDateTime
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
-
 
 class AppProductRepository : ProductRepository {
+
     // Mock data for now
     private val products = HashMap<Int, Product>()
 
-    constructor() {
+    init {
         initFakeData()
     }
 
@@ -48,11 +46,10 @@ class AppProductRepository : ProductRepository {
     }
 
     private fun initFakeData() {
-        for (i in 1..100) putRandomProduct()
+        for (i in 1..100) putProduct(randomProduct())
     }
 
-    private fun putRandomProduct() {
-        val product = randomProduct()
+    private fun putProduct(product: Product) {
         val id = product.productId
 
         products[id] = product
@@ -84,17 +81,24 @@ class AppProductRepository : ProductRepository {
         )
     }
 
-    private fun fetchRangeByCode(productCodeStart: Int, productCodeEnd: Int): List<Product> {
-        val foundProducts = ArrayList<Product>(productCodeEnd - productCodeStart)
+    private fun fetchRangeByCode(pageStartIndex: Int, pageEndIndex: Int): List<Product> {
+        val size = pageEndIndex - pageStartIndex
+        val productSortedKeys = productsSortedKeys()
+        val foundProducts = ArrayList<Product>(size)
 
-        for (productId in productCodeStart until productCodeEnd) {
-            val product: Product? = products[productId]
+        for (pos in pageStartIndex until pageEndIndex) {
+            if (pos >= productSortedKeys.size) continue
+            val product: Product? = products[productSortedKeys[pos]]
 
             if (product != null) {
                 foundProducts.add(product)
             }
         }
         return Collections.unmodifiableList(foundProducts)
+    }
+
+    private fun productsSortedKeys(): List<Int> {
+        return products.keys.sorted()
     }
 
 }
