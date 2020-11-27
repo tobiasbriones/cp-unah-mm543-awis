@@ -23,7 +23,6 @@ import com.mm543.awis.ui.main.PayWithCreditCardDialog
 import com.mm543.awis.ui.main.SignInDialog
 import com.mm543.awis.ui.main.nav.NavDrawerItem
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navigation: DrawerLayout

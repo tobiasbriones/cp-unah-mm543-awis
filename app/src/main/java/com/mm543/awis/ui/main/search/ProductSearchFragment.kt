@@ -12,6 +12,7 @@
 package com.mm543.awis.ui.main.search
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,13 +21,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mm543.awis.MainActivity
 import com.mm543.awis.R
+import com.mm543.awis.domain.model.Product
+import com.mm543.awis.repository.AppProductRepository
 import com.mm543.awis.ui.main.nav.NavDrawerAdapter
 import com.mm543.awis.ui.main.nav.NavDrawerItem
 import kotlinx.android.synthetic.main.fragment_product_search.*
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
 class ProductSearchFragment : Fragment() {
 
     override fun onCreateView(
@@ -59,18 +59,25 @@ class ProductSearchFragment : Fragment() {
     }
 
     private fun prepareNavItems(): List<NavDrawerItem> {
+        val products = getRandomProducts()
         val menuItemsList = ArrayList<NavDrawerItem>()
 
-        menuItemsList.add(NavDrawerItem(1, "Producto A", R.drawable.ic_launcher_background))
-        menuItemsList.add(NavDrawerItem(2, "Producto B", R.drawable.ic_launcher_background))
-        menuItemsList.add(NavDrawerItem(3, "Producto C", R.drawable.ic_launcher_background))
-        menuItemsList.add(NavDrawerItem(4, "Producto D", R.drawable.ic_launcher_background))
-        menuItemsList.add(NavDrawerItem(5, "Producto E", R.drawable.ic_launcher_background))
-        menuItemsList.add(NavDrawerItem(6, "Producto F", R.drawable.ic_launcher_background))
-        menuItemsList.add(NavDrawerItem(7, "Producto G", R.drawable.ic_launcher_background))
-        menuItemsList.add(NavDrawerItem(8, "Producto H", R.drawable.ic_launcher_background))
-        menuItemsList.add(NavDrawerItem(9, "Producto I", R.drawable.ic_launcher_background))
+        products.forEach {
+            menuItemsList.add(
+                NavDrawerItem(
+                    it.productId,
+                    it.name,
+                    R.drawable.ic_launcher_background
+                )
+            )
+        }
         return menuItemsList
     }
+
+    private fun getRandomProducts(): List<Product> {
+        val repository = AppProductRepository()
+        return repository.getAll(0, 10)
+    }
+
 }
 
