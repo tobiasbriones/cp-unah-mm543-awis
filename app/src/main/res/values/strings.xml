@@ -33,4 +33,10 @@
     <string name="credit_card_number_field">Credit card number *</string>
     <string name="credit_card_expiration_field">Expiration (MM/YY) *</string>
     <string name="credit_card_code_field">Card code (CVV) *</string>
+    <string name="product">Product</string>
+    <string name="product_image_content_desc">Product image</string>
+    <string name="dimensions">Dimensions</string>
+    <string name="product_size_field">Size:</string>
+    <string name="product_weight_field">Weight:</string>
+    <string name="add_to_cart">Add to shopping cart</string>
 </resources>

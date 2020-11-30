@@ -11,23 +11,25 @@
 
 package com.mm543.awis.ui.main.search
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mm543.awis.MainActivity
 import com.mm543.awis.R
 import com.mm543.awis.domain.model.Product
 import com.mm543.awis.repository.AppProductRepository
 import com.mm543.awis.ui.main.nav.NavDrawerAdapter
 import com.mm543.awis.ui.main.nav.NavDrawerItem
+import com.mm543.awis.ui.product.ProductActivity
 import kotlinx.android.synthetic.main.fragment_product_search.*
 
 class ProductSearchFragment : Fragment() {
+
+    // Temporal implementation!
+    private lateinit var products: List<Product>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,8 +48,7 @@ class ProductSearchFragment : Fragment() {
     }
 
     private fun onItemClick(position: Int, item: NavDrawerItem) {
-        Toast.makeText(requireContext(), "" + item.itemName, Toast.LENGTH_LONG).show()
-        (activity as MainActivity).closeDrawer(item)
+        startProductActivity(products[position])
     }
 
     private fun setUpViews() {
@@ -59,11 +60,11 @@ class ProductSearchFragment : Fragment() {
     }
 
     private fun prepareNavItems(): List<NavDrawerItem> {
-        val products = getRandomProducts()
-        val menuItemsList = ArrayList<NavDrawerItem>()
+        products = getRandomProducts()
+        val menuItemList = ArrayList<NavDrawerItem>()
 
         products.forEach {
-            menuItemsList.add(
+            menuItemList.add(
                 NavDrawerItem(
                     it.productId,
                     it.name,
@@ -71,12 +72,19 @@ class ProductSearchFragment : Fragment() {
                 )
             )
         }
-        return menuItemsList
+        return menuItemList
     }
 
     private fun getRandomProducts(): List<Product> {
         val repository = AppProductRepository()
         return repository.getAll(0, 10)
+    }
+
+    private fun startProductActivity(product: Product) {
+        val intent = Intent(activity, ProductActivity::class.java)
+
+        intent.putExtra("product", product)
+        startActivity(intent)
     }
 
 }
