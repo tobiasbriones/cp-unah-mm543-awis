@@ -11,6 +11,7 @@
 
 package com.mm543.awis.domain.model
 
+import java.io.Serializable
 import java.time.LocalDateTime
 
 data class Product(
@@ -24,7 +25,7 @@ data class Product(
     val safetyStockLevel: Int,
     val standardCost: Double,
     val listPrice: Double
-)
+) : Serializable
 
 data class ProductModel(
     val productModelId: Int,
@@ -32,7 +33,7 @@ data class ProductModel(
     val catalogDescription: String,
     val instructions: String,
     val modifiedDate: LocalDateTime
-)
+) : Serializable
 
 data class ProductPhoto(
     val productPhotoId: Int,
