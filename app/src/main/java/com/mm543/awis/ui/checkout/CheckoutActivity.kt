@@ -47,14 +47,15 @@ class CheckoutActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        TODO("Not yet implemented")
+        showPayDialog()
     }
 
     private fun initView() {
         user_name_tv.text = "User"
         total_products_tv.text = "-"
-        total_price_tv.text = "-"
+        total_price_tv.text = "$-"
 
+        checkout_next_button.setOnClickListener(this)
         initProductsRV()
     }
 
@@ -67,15 +68,15 @@ class CheckoutActivity : AppCompatActivity(), View.OnClickListener {
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = productsAdapter
         recyclerView.setHasFixedSize(true)
-
-//        for (i in 0..9) {
-//            input.add(C)
-//        }
-
-
     }
 
     private fun navigateBack() {
         onBackPressed()
     }
+
+    private fun showPayDialog() {
+        val newFragment = PayWithCreditCardDialog()
+        newFragment.show(supportFragmentManager, "dialog")
+    }
+
 }

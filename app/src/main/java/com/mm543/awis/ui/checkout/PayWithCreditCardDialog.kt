@@ -9,7 +9,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package com.mm543.awis.ui.main
+package com.mm543.awis.ui.checkout
 
 import android.app.AlertDialog
 import android.app.Dialog
