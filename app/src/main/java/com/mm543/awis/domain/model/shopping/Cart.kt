@@ -14,9 +14,12 @@ package com.mm543.awis.domain.model.shopping
 import com.mm543.awis.domain.model.Product
 import java.io.Serializable
 
-class Cart : Serializable {
+class Cart : Serializable, Iterable<CartItem> {
     private val items = ArrayList<CartItem>()
     private var totalPrice = 0.0
+
+    override fun iterator(): Iterator<CartItem> = items.iterator()
+
     fun totalItems(): Int = items.size
     fun totalPrice(): Double = totalPrice
 
