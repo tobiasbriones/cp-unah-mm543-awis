@@ -1,12 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/spacing_16">
 
+    <TextView
+        android:id="@+id/user_name_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_16"
+        android:textColor="@color/primaryText" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_16"
+        android:text="@string/added_products_text"
+        android:textColor="@color/primaryText" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cart_products_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_16" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/spacing_4"
+            android:text="@string/total_field"
+            android:textColor="@color/primaryText" />
+        <TextView
+            android:id="@+id/total_products_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@color/primaryText" />
+        <TextView
+            android:id="@+id/total_price_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:textColor="@color/primaryText" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/checkout_next_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/next" />
 
 </LinearLayout>

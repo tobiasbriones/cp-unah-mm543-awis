@@ -40,4 +40,8 @@
     <string name="product_weight_field">Weight:</string>
     <string name="add_to_cart">Add to shopping cart</string>
     <string name="checkout">Checkout</string>
+    <string name="added_products_text">Added products</string>
+    <string name="remove_item_content_desc">Remove item</string>
+    <string name="product_photo_content_desc">Product photo</string>
+    <string name="total_field">Total:</string>
 </resources>

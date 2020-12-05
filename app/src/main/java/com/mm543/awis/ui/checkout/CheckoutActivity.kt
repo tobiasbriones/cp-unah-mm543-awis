@@ -12,16 +12,20 @@
 package com.mm543.awis.ui.checkout
 
 import android.os.Bundle
-import android.text.Editable
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.mm543.awis.R
-import com.mm543.awis.domain.model.Product
-import kotlinx.android.synthetic.main.content_product.*
+import com.mm543.awis.domain.model.shopping.CartItem
+import kotlinx.android.synthetic.main.content_checkout.*
+
 
 class CheckoutActivity : AppCompatActivity(), View.OnClickListener {
+
+    private lateinit var layoutManager: LinearLayoutManager
+    private lateinit var productsAdapter: CartItemListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +51,27 @@ class CheckoutActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initView() {
+        user_name_tv.text = "User"
+        total_products_tv.text = "-"
+        total_price_tv.text = "-"
+
+        initProductsRV()
+    }
+
+    private fun initProductsRV() {
+        val recyclerView = findViewById<RecyclerView>(R.id.cart_products_rv)
+        val input: ArrayList<CartItem> = ArrayList()
+        layoutManager = LinearLayoutManager(this)
+        productsAdapter = CartItemListAdapter(input)
+
+        recyclerView.layoutManager = layoutManager
+        recyclerView.adapter = productsAdapter
+        recyclerView.setHasFixedSize(true)
+
+//        for (i in 0..9) {
+//            input.add(C)
+//        }
+
 
     }
 
