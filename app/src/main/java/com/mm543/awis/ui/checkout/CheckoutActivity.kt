@@ -18,18 +18,24 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mm543.awis.R
+import com.mm543.awis.domain.model.Product
+import com.mm543.awis.domain.model.ProductModel
+import com.mm543.awis.domain.model.shopping.Cart
 import com.mm543.awis.domain.model.shopping.CartItem
 import kotlinx.android.synthetic.main.content_checkout.*
+import java.time.LocalDateTime
 
 
 class CheckoutActivity : AppCompatActivity(), View.OnClickListener {
 
+    private lateinit var cart: Cart
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var productsAdapter: CartItemListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val extras = intent.extras
+        cart = sampleCart()
 
         setContentView(R.layout.activity_checkout)
         setSupportActionBar(findViewById(R.id.toolbar))
@@ -57,6 +63,12 @@ class CheckoutActivity : AppCompatActivity(), View.OnClickListener {
 
         checkout_next_button.setOnClickListener(this)
         initProductsRV()
+        initResumeInfo()
+    }
+
+    private fun initResumeInfo() {
+        total_products_tv.text = cart.totalItems().toString()
+        total_price_tv.text = cart.totalPrice().toString()
     }
 
     private fun initProductsRV() {
@@ -68,6 +80,38 @@ class CheckoutActivity : AppCompatActivity(), View.OnClickListener {
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = productsAdapter
         recyclerView.setHasFixedSize(true)
+
+        productsAdapter.add(0, sampleItem())
+    }
+
+    private fun sampleCart(): Cart {
+        val cart = Cart()
+        cart.add(sampleItem())
+        return cart
+    }
+
+    private fun sampleItem(): CartItem {
+        return CartItem(
+            Product(
+                1,
+                ProductModel(
+                    1,
+                    "Name",
+                    "Catalog",
+                    "Ins",
+                    LocalDateTime.now()
+                ),
+                "Name",
+                1,
+                true,
+                true,
+                1,
+                1,
+                23.4,
+                232.4
+            ),
+            3
+        )
     }
 
     private fun navigateBack() {
