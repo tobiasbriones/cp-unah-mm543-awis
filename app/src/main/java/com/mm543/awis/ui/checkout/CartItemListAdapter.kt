@@ -14,7 +14,6 @@ package com.mm543.awis.ui.checkout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -27,7 +26,7 @@ class CartItemListAdapter(private val values: ArrayList<CartItem>) :
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val removeButton: ImageButton = view.findViewById(R.id.remove_item_button)
-        val quantityEditText: EditText = view.findViewById(R.id.item_quantity_edit_text)
+        val quantityTV: TextView = view.findViewById(R.id.item_quantity_tv)
         val photoIV: ImageView = view.findViewById(R.id.product_photo_iv)
         val nameTV: TextView = view.findViewById(R.id.product_name_tv)
         val priceTV: TextView = view.findViewById(R.id.product_price_tv)
@@ -45,6 +44,7 @@ class CartItemListAdapter(private val values: ArrayList<CartItem>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
 
+        holder.quantityTV.text = item.quantity.toString()
         holder.nameTV.text = item.product.name
         holder.priceTV.text = item.price().toString()
     }
