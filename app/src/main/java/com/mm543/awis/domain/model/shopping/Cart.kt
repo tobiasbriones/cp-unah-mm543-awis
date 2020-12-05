@@ -14,6 +14,10 @@ package com.mm543.awis.domain.model.shopping
 import com.mm543.awis.domain.model.Product
 import java.io.Serializable
 
+object CartConstants {
+    const val DEF_PRODUCT_QUANTITY: Int = 1
+}
+
 class Cart : Serializable, Iterable<CartItem> {
     private val items = ArrayList<CartItem>()
     private var totalPrice = 0.0
@@ -56,7 +60,7 @@ class Cart : Serializable, Iterable<CartItem> {
 
 data class CartItem(
     val product: Product,
-    val quantity: Int
+    val quantity: Int = CartConstants.DEF_PRODUCT_QUANTITY
 ) : Serializable {
     init {
         validate()
