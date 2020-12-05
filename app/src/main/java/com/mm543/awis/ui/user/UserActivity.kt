@@ -12,7 +12,6 @@
 package com.mm543.awis.ui.user
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -28,7 +27,7 @@ class UserActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        user_name_text.setText("User Name")
+        user_name_tv.setText("User Name")
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
