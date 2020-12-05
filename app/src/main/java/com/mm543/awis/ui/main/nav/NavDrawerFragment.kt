@@ -57,7 +57,7 @@ class NavDrawerFragment : Fragment(), View.OnClickListener {
             LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
         items_recycler?.adapter = navDrawerAdapter
 
-        user_name_text.text = "User X"
+        user_name_tv.text = "User X"
         user.setOnClickListener(this)
         navDrawerAdapter.setNavItemsData(prepareNavItems())
     }
