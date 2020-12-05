@@ -47,6 +47,7 @@ class CartItemListAdapter(private val values: ArrayList<CartItem>) :
         holder.quantityTV.text = item.quantity.toString()
         holder.nameTV.text = item.product.name
         holder.priceTV.text = item.price().toString()
+        holder.removeButton.setOnClickListener { onRemoveButtonClick(item) }
     }
 
     override fun getItemCount(): Int {
@@ -63,4 +64,7 @@ class CartItemListAdapter(private val values: ArrayList<CartItem>) :
         notifyItemRemoved(position)
     }
 
+    private fun onRemoveButtonClick(item: CartItem) {
+        remove(values.indexOf(item))
+    }
 }
