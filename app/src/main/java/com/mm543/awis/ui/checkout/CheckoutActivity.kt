@@ -25,7 +25,6 @@ import com.mm543.awis.domain.model.shopping.CartItem
 import kotlinx.android.synthetic.main.content_checkout.*
 import java.time.LocalDateTime
 
-
 class CheckoutActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var cart: Cart
@@ -81,11 +80,16 @@ class CheckoutActivity : AppCompatActivity(), View.OnClickListener {
         recyclerView.adapter = productsAdapter
         recyclerView.setHasFixedSize(true)
 
-        productsAdapter.add(0, sampleItem())
+        addCartProductsToRV()
+    }
+
+    private fun addCartProductsToRV() {
+        cart.forEachIndexed { index, cartItem -> productsAdapter.add(index, cartItem) }
     }
 
     private fun sampleCart(): Cart {
         val cart = Cart()
+        cart.add(sampleItem())
         cart.add(sampleItem())
         return cart
     }
@@ -110,7 +114,7 @@ class CheckoutActivity : AppCompatActivity(), View.OnClickListener {
                 23.4,
                 232.4
             ),
-            3
+            2
         )
     }
 
