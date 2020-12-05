@@ -25,7 +25,9 @@ import com.mm543.awis.domain.model.shopping.CartItem
 import kotlinx.android.synthetic.main.content_checkout.*
 import java.time.LocalDateTime
 
-class CheckoutActivity : AppCompatActivity(), View.OnClickListener {
+class CheckoutActivity : AppCompatActivity(),
+    View.OnClickListener,
+    CartItemListAdapter.OnRemoveItemListener {
 
     private lateinit var cart: Cart
     private lateinit var layoutManager: LinearLayoutManager
@@ -55,6 +57,11 @@ class CheckoutActivity : AppCompatActivity(), View.OnClickListener {
         showPayDialog()
     }
 
+    override fun onCartItemRemoved(item: CartItem) {
+        cart.remove(item)
+        updateResumeInfo()
+    }
+
     private fun initView() {
         user_name_tv.text = "User"
         total_products_tv.text = "-"
@@ -62,25 +69,25 @@ class CheckoutActivity : AppCompatActivity(), View.OnClickListener {
 
         checkout_next_button.setOnClickListener(this)
         initProductsRV()
-        initResumeInfo()
-    }
-
-    private fun initResumeInfo() {
-        total_products_tv.text = cart.totalItems().toString()
-        total_price_tv.text = cart.totalPrice().toString()
+        updateResumeInfo()
     }
 
     private fun initProductsRV() {
         val recyclerView = findViewById<RecyclerView>(R.id.cart_products_rv)
         val input: ArrayList<CartItem> = ArrayList()
         layoutManager = LinearLayoutManager(this)
-        productsAdapter = CartItemListAdapter(input)
+        productsAdapter = CartItemListAdapter(input, this)
 
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = productsAdapter
         recyclerView.setHasFixedSize(true)
 
         addCartProductsToRV()
+    }
+
+    private fun updateResumeInfo() {
+        total_products_tv.text = cart.totalItems().toString()
+        total_price_tv.text = cart.totalPrice().toString()
     }
 
     private fun addCartProductsToRV() {

@@ -21,10 +21,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mm543.awis.R
 import com.mm543.awis.domain.model.shopping.CartItem
 
-class CartItemListAdapter(private val values: ArrayList<CartItem>) :
+class CartItemListAdapter(
+    private val values: ArrayList<CartItem>,
+    private val l: OnRemoveItemListener
+) :
     RecyclerView.Adapter<CartItemListAdapter.ViewHolder>() {
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    @FunctionalInterface
+    interface OnRemoveItemListener {
+        fun onCartItemRemoved(item: CartItem)
+    }
+
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val removeButton: ImageButton = view.findViewById(R.id.remove_item_button)
         val quantityTV: TextView = view.findViewById(R.id.item_quantity_tv)
         val photoIV: ImageView = view.findViewById(R.id.product_photo_iv)
@@ -66,5 +74,6 @@ class CartItemListAdapter(private val values: ArrayList<CartItem>) :
 
     private fun onRemoveButtonClick(item: CartItem) {
         remove(values.indexOf(item))
+        l.onCartItemRemoved(item)
     }
 }
