@@ -62,8 +62,6 @@ class AppProductRepository : ProductRepository {
             randomProductModel(randomId),
             "Product $randomId",
             randomId,
-            true,
-            true,
             0,
             0,
             Math.random() * 1500,

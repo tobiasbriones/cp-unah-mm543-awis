@@ -19,8 +19,6 @@ data class Product(
     val productModel: ProductModel,
     val name: String,
     val productNumber: Int,
-    val makeFlag: Boolean,
-    val finishedGoodsFlag: Boolean,
     val color: Int,
     val safetyStockLevel: Int,
     val standardCost: Double,

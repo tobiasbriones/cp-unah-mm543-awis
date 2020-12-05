@@ -107,8 +107,6 @@ class CheckoutActivity : AppCompatActivity(), View.OnClickListener {
                 ),
                 "Name",
                 1,
-                true,
-                true,
                 1,
                 1,
                 23.4,
