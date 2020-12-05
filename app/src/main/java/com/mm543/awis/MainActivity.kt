@@ -11,13 +11,14 @@
 
 package com.mm543.awis
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.DialogFragment
+import com.mm543.awis.ui.checkout.CheckoutActivity
 import com.mm543.awis.ui.main.AboutDialog
 import com.mm543.awis.ui.main.PayWithCreditCardDialog
 import com.mm543.awis.ui.main.SignInDialog
@@ -49,7 +50,7 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.action_shopping_cart -> {
-                // TODO
+                startCheckoutActivity()
                 true
             }
             R.id.action_settings -> {
@@ -91,8 +92,13 @@ class MainActivity : AppCompatActivity() {
         newFragment.show(supportFragmentManager, "dialog")
     }
 
+    private fun startCheckoutActivity() {
+        val intent = Intent(this, CheckoutActivity::class.java)
+
+        startActivity(intent)
+    }
+
     fun closeDrawer(item: NavDrawerItem) {
         navigation.closeDrawer(Gravity.LEFT)
     }
-
 }

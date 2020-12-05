@@ -39,4 +39,5 @@
     <string name="product_size_field">Size:</string>
     <string name="product_weight_field">Weight:</string>
     <string name="add_to_cart">Add to shopping cart</string>
+    <string name="checkout">Checkout</string>
 </resources>

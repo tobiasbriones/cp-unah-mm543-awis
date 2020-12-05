@@ -9,43 +9,35 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package com.mm543.awis.ui.product
+package com.mm543.awis.ui.checkout
 
-import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.mm543.awis.R
 import com.mm543.awis.domain.model.Product
-import com.mm543.awis.ui.checkout.CheckoutActivity
 import kotlinx.android.synthetic.main.content_product.*
 
-class ProductActivity : AppCompatActivity(), View.OnClickListener {
-    private var product: Product? = null
+class CheckoutActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val extras = intent.extras
-        product = extras?.getSerializable("product") as Product?
 
-        setContentView(R.layout.activity_product)
+        setContentView(R.layout.activity_checkout)
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         initView()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_product, menu)
-        return true
-    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> navigateBack()
-            R.id.action_shopping_cart -> startCheckoutActivity()
         }
         return true
     }
@@ -55,19 +47,7 @@ class ProductActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initView() {
-        product_name_text.text = product?.name
-        product_color_text.text = product?.color.toString()
-        product_price_text.text = product?.listPrice.toString()
 
-        product_size_text.text = "Grande"
-        product_weight_text.text = "100lb"
-        add_to_cart_button.setOnClickListener(this)
-    }
-
-    private fun startCheckoutActivity() {
-        val intent = Intent(this, CheckoutActivity::class.java)
-
-        startActivity(intent)
     }
 
     private fun navigateBack() {
