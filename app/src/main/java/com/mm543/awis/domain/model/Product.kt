@@ -42,3 +42,7 @@ data class ProductPhoto(
     val largePhotoFileName: String,
     val modifiedDate: LocalDateTime
 )
+
+data class ProductCategory(
+    val name: String
+)
