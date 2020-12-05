@@ -17,7 +17,7 @@ import com.mm543.awis.domain.model.shopping.CartItem
 class CartItemSetQuantityUseCase(
     private val cart: Cart
 ) {
-    fun execute(item: CartItem, quantity: Double) {
+    fun execute(item: CartItem, quantity: Int) {
         val newItem = CartItem(item.product, quantity)
         cart.setItemAt(item, newItem)
     }

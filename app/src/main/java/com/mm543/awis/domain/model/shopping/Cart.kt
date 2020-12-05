@@ -45,7 +45,7 @@ class Cart() : Serializable {
 
 data class CartItem(
     val product: Product,
-    val quantity: Double
+    val quantity: Int
 ) : Serializable {
     init {
         validate()
