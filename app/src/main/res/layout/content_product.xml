@@ -109,20 +109,37 @@
         android:layout_marginVertical="@dimen/spacing_16"
         android:orientation="horizontal"
         android:weightSum="100">
+
+        <ImageButton
+            android:id="@+id/decrement_quantity_button"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/decrement_quantity_content_desc"
+            app:srcCompat="@drawable/ic_baseline_arrow_drop_down_24" />
+
+        <ImageButton
+            android:id="@+id/increment_quantity_button"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/increment_quantity_content_desc"
+            app:srcCompat="@drawable/ic_baseline_arrow_drop_up_24" />
+
         <EditText
-            android:id="@+id/product_amount_edit_text"
+            android:id="@+id/product_quantity_edit_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="25"
             android:ems="10"
             android:inputType="numberSigned"
             tools:text="1" />
+
         <Button
             android:id="@+id/add_to_cart_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="75"
             android:text="@string/add_to_cart" />
+
     </LinearLayout>
 
 </LinearLayout>

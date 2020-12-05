@@ -44,4 +44,6 @@
     <string name="remove_item_content_desc">Remove item</string>
     <string name="product_photo_content_desc">Product photo</string>
     <string name="total_field">Total:</string>
+    <string name="decrement_quantity_content_desc">Decrement quantity</string>
+    <string name="increment_quantity_content_desc">Increment quantity</string>
 </resources>

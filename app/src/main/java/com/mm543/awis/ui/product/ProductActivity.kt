@@ -19,6 +19,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.mm543.awis.R
 import com.mm543.awis.domain.model.Product
+import com.mm543.awis.domain.model.shopping.CartConstants
 import com.mm543.awis.ui.checkout.CheckoutActivity
 import kotlinx.android.synthetic.main.content_product.*
 
@@ -54,13 +55,31 @@ class ProductActivity : AppCompatActivity(), View.OnClickListener {
         TODO("Not yet implemented")
     }
 
+    private fun getQuantity(): Int {
+        val quantityStr = product_quantity_edit_text.text.toString()
+        return try {
+            quantityStr.toInt()
+        } catch (e: NumberFormatException) {
+            0
+        }
+    }
+
+    private fun setQuantity(quantity: Int) {
+        if (quantity < 0) return
+        val quantityStr = quantity.toString()
+        product_quantity_edit_text.setText(quantityStr)
+    }
+
     private fun initView() {
+        setQuantity(CartConstants.DEF_PRODUCT_QUANTITY)
         product_name_text.text = product?.name
         product_color_text.text = product?.color.toString()
         product_price_text.text = product?.listPrice.toString()
 
         product_size_text.text = "Grande"
         product_weight_text.text = "100lb"
+        increment_quantity_button.setOnClickListener { onIncrementQuantityButtonClick() }
+        decrement_quantity_button.setOnClickListener { onDecrementQuantityButtonClick() }
         add_to_cart_button.setOnClickListener(this)
     }
 
@@ -68,6 +87,16 @@ class ProductActivity : AppCompatActivity(), View.OnClickListener {
         val intent = Intent(this, CheckoutActivity::class.java)
 
         startActivity(intent)
+    }
+
+    private fun onIncrementQuantityButtonClick() {
+        val newQuantity = getQuantity() + 1
+        setQuantity(newQuantity)
+    }
+
+    private fun onDecrementQuantityButtonClick() {
+        val newQuantity = getQuantity() - 1
+        setQuantity(newQuantity)
     }
 
     private fun navigateBack() {
