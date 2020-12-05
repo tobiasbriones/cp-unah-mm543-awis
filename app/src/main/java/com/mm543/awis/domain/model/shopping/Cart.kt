@@ -32,20 +32,36 @@ class Cart() : Serializable {
         if (itemRemoved) onItemRemoved()
     }
 
+    fun setItemAt(oldItem: CartItem, newItem: CartItem) {
+        val index = items.indexOf(oldItem)
+
+        if (index != -1) {
+            items[index] = newItem
+        }
+    }
+
     private fun onItemRemoved() = totalPrice--
 }
 
 data class CartItem(
     private val product: Product,
-    val quantity: Int
+    val quantity: Double
 ) : Serializable {
     init {
+        validate()
+    }
+
+    fun name(): String = product.name
+    fun price(): Double = product.listPrice
+
+    private fun validate() {
+        validateQuantity()
+    }
+
+    private fun validateQuantity() {
         if (quantity < 0) {
             val msg = "Quantity is a non-negative integer number: $quantity"
             throw RuntimeException(msg)
         }
     }
-
-    fun name(): String = product.name
-    fun price(): Double = product.listPrice
 }
