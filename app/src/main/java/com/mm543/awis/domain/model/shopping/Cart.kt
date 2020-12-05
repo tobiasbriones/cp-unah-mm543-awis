@@ -14,22 +14,21 @@ package com.mm543.awis.domain.model.shopping
 import com.mm543.awis.domain.model.Product
 import java.io.Serializable
 
-class Cart() : Serializable {
+class Cart : Serializable {
     private val items = ArrayList<CartItem>()
     private var totalPrice = 0.0
-
     fun totalItems(): Int = items.size
     fun totalPrice(): Double = totalPrice
 
     fun add(item: CartItem) {
         items.add(item)
-        totalPrice += item.price()
+        onItemAdded(item)
     }
 
     fun remove(item: CartItem) {
         val itemRemoved = items.remove(item)
 
-        if (itemRemoved) onItemRemoved()
+        if (itemRemoved) onItemRemoved(item)
     }
 
     fun setItemAt(oldItem: CartItem, newItem: CartItem) {
@@ -37,10 +36,19 @@ class Cart() : Serializable {
 
         if (index != -1) {
             items[index] = newItem
+
+            onItemRemoved(oldItem)
+            onItemAdded(newItem)
         }
     }
 
-    private fun onItemRemoved() = totalPrice--
+    private fun onItemAdded(item: CartItem) {
+        totalPrice += item.price()
+    }
+
+    private fun onItemRemoved(item: CartItem) {
+        totalPrice -= item.price()
+    }
 }
 
 data class CartItem(
@@ -52,7 +60,7 @@ data class CartItem(
     }
 
     fun name(): String = product.name
-    fun price(): Double = product.listPrice
+    fun price(): Double = product.listPrice * quantity
 
     private fun validate() {
         validateQuantity()
