@@ -44,7 +44,7 @@ class Cart() : Serializable {
 }
 
 data class CartItem(
-    private val product: Product,
+    val product: Product,
     val quantity: Double
 ) : Serializable {
     init {
