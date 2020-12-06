@@ -12,7 +12,9 @@
 package com.mm543.awis.domain.repository
 
 import com.mm543.awis.domain.model.Product
+import com.mm543.awis.domain.model.ProductCategory
 
 interface ProductRepository : ReadOnlyRepository<Product> {
     fun searchByName(name: String): List<Product>
+    fun searchByCategory(category: ProductCategory): List<Product>
 }

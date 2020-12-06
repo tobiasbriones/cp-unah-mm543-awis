@@ -12,6 +12,7 @@
 package com.mm543.awis.repository
 
 import com.mm543.awis.domain.model.Product
+import com.mm543.awis.domain.model.ProductCategory
 import com.mm543.awis.domain.model.ProductModel
 import com.mm543.awis.domain.repository.ProductRepository
 import java.time.LocalDateTime
@@ -42,6 +43,10 @@ class AppProductRepository : ProductRepository {
     }
 
     override fun searchByName(name: String): List<Product> {
+        TODO("Not yet implemented")
+    }
+
+    override fun searchByCategory(category: ProductCategory): List<Product> {
         TODO("Not yet implemented")
     }
 
