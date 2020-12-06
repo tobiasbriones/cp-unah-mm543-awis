@@ -13,38 +13,34 @@ package com.mm543.awis.ui.checkout
 
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mm543.awis.R
-import com.mm543.awis.domain.model.Product
-import com.mm543.awis.domain.model.ProductModel
 import com.mm543.awis.domain.model.shopping.Cart
 import com.mm543.awis.domain.model.shopping.CartItem
+import com.mm543.awis.repository.AppCartRepository
+import com.mm543.awis.repository.IOInternalStorageException
 import kotlinx.android.synthetic.main.content_checkout.*
-import java.time.LocalDateTime
 
 class CheckoutActivity : AppCompatActivity(),
-    View.OnClickListener,
     CartItemListAdapter.OnRemoveItemListener {
-
+    private val cartRepository = AppCartRepository(this)
     private lateinit var cart: Cart
-    private lateinit var layoutManager: LinearLayoutManager
     private lateinit var productsAdapter: CartItemListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val extras = intent.extras
-        cart = sampleCart()
+        cart = cartRepository.get()
 
         setContentView(R.layout.activity_checkout)
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         initView()
+        update()
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -53,36 +49,53 @@ class CheckoutActivity : AppCompatActivity(),
         return true
     }
 
-    override fun onClick(v: View?) {
+    override fun onCartItemRemoved(item: CartItem) {
+        cart.remove(item)
+        saveCart()
+        updateResumeInfo()
+    }
+
+    private fun onNextButtonClick() {
         showPayDialog()
     }
 
-    override fun onCartItemRemoved(item: CartItem) {
-        cart.remove(item)
-        updateResumeInfo()
+    private fun onSaveCartFailed(msg: String) {
+        cart = cartRepository.get()
+
+        showInfoDialog(msg)
+        update()
     }
 
     private fun initView() {
-        main_nav_user_name_tv.text = "User"
-        total_products_tv.text = "-"
-        total_price_tv.text = "$-"
-
-        checkout_next_button.setOnClickListener(this)
+        checkout_next_button.setOnClickListener { onNextButtonClick() }
         initProductsRV()
-        updateResumeInfo()
     }
 
     private fun initProductsRV() {
         val recyclerView = findViewById<RecyclerView>(R.id.cart_products_rv)
         val input: ArrayList<CartItem> = ArrayList()
-        layoutManager = LinearLayoutManager(this)
+        val layoutManager = LinearLayoutManager(this)
         productsAdapter = CartItemListAdapter(input, this)
 
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = productsAdapter
         recyclerView.setHasFixedSize(true)
+    }
 
-        addCartProductsToRV()
+    private fun update() {
+        updateUserInfo()
+        updateProductsRV()
+        updateResumeInfo()
+    }
+
+    private fun updateUserInfo() {
+        main_nav_user_name_tv.text = "User"
+        total_products_tv.text = "-"
+        total_price_tv.text = "$-"
+    }
+
+    private fun updateProductsRV() {
+        cart.forEachIndexed { index, cartItem -> productsAdapter.add(index, cartItem) }
     }
 
     private fun updateResumeInfo() {
@@ -90,41 +103,17 @@ class CheckoutActivity : AppCompatActivity(),
         total_price_tv.text = cart.totalPrice().toString()
     }
 
-    private fun addCartProductsToRV() {
-        cart.forEachIndexed { index, cartItem -> productsAdapter.add(index, cartItem) }
-    }
-
-    private fun sampleCart(): Cart {
-        val cart = Cart()
-        cart.add(sampleItem())
-        cart.add(sampleItem())
-        return cart
-    }
-
-    private fun sampleItem(): CartItem {
-        return CartItem(
-            Product(
-                1,
-                ProductModel(
-                    1,
-                    "Name",
-                    "Catalog",
-                    "Ins",
-                    LocalDateTime.now()
-                ),
-                "Name",
-                1,
-                1,
-                1,
-                23.4,
-                232.4
-            ),
-            2
-        )
-    }
-
     private fun navigateBack() {
         onBackPressed()
+    }
+
+    private fun showInfoDialog(msg: String) {
+        val dialog = AlertDialog.Builder(this)
+            .setMessage(msg)
+            .setPositiveButton(R.string.ok, null)
+            .create()
+
+        dialog.show()
     }
 
     private fun showPayDialog() {
@@ -132,4 +121,11 @@ class CheckoutActivity : AppCompatActivity(),
         newFragment.show(supportFragmentManager, "dialog")
     }
 
+    private fun saveCart() {
+        try {
+            cartRepository.set(cart)
+        } catch (e: IOInternalStorageException) {
+            e.message?.let { onSaveCartFailed(it) }
+        }
+    }
 }
