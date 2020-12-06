@@ -11,7 +11,11 @@
 
 package com.mm543.awis.ui.main.categories
 
+import com.mm543.awis.domain.model.ProductCategory
+
 data class CategoryItem(
-    val name: String,
+    val productCategory: ProductCategory,
     val imageId: Int
-)
+) {
+    val name: String = productCategory.name
+}

@@ -19,7 +19,7 @@ import com.mm543.awis.R
 import com.mm543.awis.ui.main.categories.CategoriesAdapter.ViewHolder
 import kotlinx.android.synthetic.main.product_category_item.view.*
 
-class CategoriesAdapter(private val onItemClick: ((position: Int, item: CategoryItem) -> Unit)) :
+class CategoriesAdapter(private val onItemClick: ((item: CategoryItem) -> Unit)) :
     RecyclerView.Adapter<ViewHolder>() {
     private val categoryItems = ArrayList<CategoryItem>()
 
@@ -50,7 +50,7 @@ class CategoriesAdapter(private val onItemClick: ((position: Int, item: Category
         fun setData(categoryItem: CategoryItem) {
             itemView.setOnClickListener {
                 categoryItem.let {
-                    onItemClick.invoke(adapterPosition, categoryItem)
+                    onItemClick.invoke(categoryItem)
                 }
             }
             itemView.product_category_image_iv?.setImageResource(categoryItem.imageId)

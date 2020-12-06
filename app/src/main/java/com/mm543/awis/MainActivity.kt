@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.navigation.NavigationView
+import com.mm543.awis.domain.model.ProductCategory
 import com.mm543.awis.ui.checkout.CheckoutActivity
 import com.mm543.awis.ui.main.AboutDialog
 import com.mm543.awis.ui.main.SignInDialog
@@ -88,6 +89,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             else -> true
         }
+    }
+
+    fun searchByCategory(category: ProductCategory) {
+        // TODO
     }
 
     private fun showNavigation() {

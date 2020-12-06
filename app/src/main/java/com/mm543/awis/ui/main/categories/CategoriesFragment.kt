@@ -18,19 +18,25 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.mm543.awis.MainActivity
 import com.mm543.awis.R
 import com.mm543.awis.domain.model.ProductCategory
 import com.mm543.awis.repository.AppProductCategoryRepository
-import kotlinx.android.synthetic.main.fragment_product_search.*
 
 class CategoriesFragment : Fragment() {
 
-    private val categoriesAdapter: CategoriesAdapter = CategoriesAdapter { position, item ->
-        onItemClick(position, item)
+    private val categoriesAdapter: CategoriesAdapter = CategoriesAdapter { item ->
+        onItemClick(item)
     }
 
+    private lateinit var mainActivity: MainActivity
     private lateinit var categoriesRV: RecyclerView
     private lateinit var categories: List<ProductCategory>
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        mainActivity = activity as MainActivity
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +51,8 @@ class CategoriesFragment : Fragment() {
         initViews(view)
     }
 
-    private fun onItemClick(position: Int, item: CategoryItem) {
+    private fun onItemClick(item: CategoryItem) {
+        mainActivity.searchByCategory(item.productCategory)
     }
 
     private fun initViews(view: View) {
@@ -68,7 +75,7 @@ class CategoriesFragment : Fragment() {
         categories.forEach {
             menuItemList.add(
                 CategoryItem(
-                    it.name,
+                    it,
                     R.drawable.ic_launcher_background
                 )
             )
