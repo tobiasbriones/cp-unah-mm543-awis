@@ -44,4 +44,4 @@ data class ProductPhoto(
 data class ProductCategory(
     val id: Int,
     val name: String
-)
+) : Serializable
