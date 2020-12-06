@@ -46,6 +46,10 @@ class CategoriesAdapter(private val onItemClick: ((item: CategoryItem) -> Unit))
         notifyDataSetChanged()
     }
 
+    fun silentClear() {
+        categoryItems.clear()
+    }
+
     inner class ViewHolder(inflate: View) : RecyclerView.ViewHolder(inflate) {
         fun setData(categoryItem: CategoryItem) {
             itemView.setOnClickListener {

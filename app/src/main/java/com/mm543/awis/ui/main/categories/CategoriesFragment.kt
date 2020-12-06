@@ -51,6 +51,11 @@ class CategoriesFragment : Fragment() {
         initViews(view)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        categoriesAdapter.silentClear()
+    }
+
     private fun onItemClick(item: CategoryItem) {
         mainActivity.onProductCategoryItemClick(item.productCategory)
     }
