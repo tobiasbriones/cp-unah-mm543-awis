@@ -25,7 +25,7 @@ class Cart : Serializable, Iterable<CartItem> {
     override fun iterator(): Iterator<CartItem> = items.iterator()
 
     fun totalItems(): Int = items.size
-    fun totalPrice(): Double = totalPrice
+    fun totalPrice(): Double = String.format("%.2f", totalPrice).toDouble()
 
     fun add(item: CartItem) {
         items.add(item)
