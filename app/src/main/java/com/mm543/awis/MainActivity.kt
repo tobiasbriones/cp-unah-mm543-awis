@@ -28,6 +28,7 @@ import com.mm543.awis.ui.main.AboutDialog
 import com.mm543.awis.ui.main.SignInDialog
 import com.mm543.awis.ui.main.categories.CategoriesFragment
 import com.mm543.awis.ui.main.search.ProductSearchFragment
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var navigation: DrawerLayout
@@ -48,7 +49,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         navigationView.setNavigationItemSelectedListener(this)
+        fab.setOnClickListener{onSearchFabClick()}
         showProductsFragment()
+    }
+
+    private fun onSearchFabClick() {
+        showSearchWidget()
+    }
+
+    private fun showSearchWidget() {
+        TODO("Not yet implemented")
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
