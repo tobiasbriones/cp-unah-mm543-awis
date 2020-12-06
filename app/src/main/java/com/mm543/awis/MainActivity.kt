@@ -207,6 +207,6 @@ class MainActivity : AppCompatActivity(),
     }
 
     private fun searchProduct(query: String) {
-        // TODO
+        productSearchFragment.searchProduct(query)
     }
 }

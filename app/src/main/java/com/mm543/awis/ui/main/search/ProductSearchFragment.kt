@@ -27,9 +27,10 @@ import com.mm543.awis.ui.product.ProductActivity
 import kotlinx.android.synthetic.main.fragment_product_search.*
 
 class ProductSearchFragment : Fragment() {
+    private val productRepository = AppProductRepository()
     private val productSearchAdapter: ProductSearchAdapter =
-        ProductSearchAdapter { position, item ->
-            onItemClick(position, item)
+        ProductSearchAdapter { item ->
+            onItemClick(item)
         }
 
     private lateinit var productsRV: RecyclerView
@@ -48,6 +49,15 @@ class ProductSearchFragment : Fragment() {
         checkArguments()
     }
 
+    fun searchProduct(query: String) {
+        val results = productRepository.searchByName(query)
+        setResults(query, results)
+    }
+
+    private fun onItemClick(item: Product) {
+        startProductActivity(item)
+    }
+
     private fun checkArguments() {
         val categorySearch: ProductCategory? = arguments?.get("categorySearch") as ProductCategory?
 
@@ -56,8 +66,11 @@ class ProductSearchFragment : Fragment() {
         }
     }
 
-    private fun onItemClick(position: Int, item: Product) {
-        startProductActivity(item)
+    private fun setResults(query: String, results: List<Product>) {
+        val resultsTitle = resources.getString(R.string.product_search_results_title).format(query)
+
+        product_search_title_tv.text = resultsTitle
+        productSearchAdapter.setProducts(results)
     }
 
     private fun initViews() {
@@ -66,7 +79,7 @@ class ProductSearchFragment : Fragment() {
         productsRV.layoutManager = LinearLayoutManager(activity, orientation, false)
         productsRV.adapter = productSearchAdapter
 
-        productSearchAdapter.setProductItemsData(getRandomProducts())
+        productSearchAdapter.setProducts(getRandomProducts())
     }
 
     private fun getRandomProducts(): List<Product> {

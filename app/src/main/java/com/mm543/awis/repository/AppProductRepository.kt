@@ -43,7 +43,11 @@ class AppProductRepository : ProductRepository {
     }
 
     override fun searchByName(name: String): List<Product> {
-        TODO("Not yet implemented")
+        // TODO implement
+        // Dummy sample:
+        products.clear()
+        initFakeData()
+        return getAll(0, 10)
     }
 
     override fun searchByCategory(category: ProductCategory): List<Product> {

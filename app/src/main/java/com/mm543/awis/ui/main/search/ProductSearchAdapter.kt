@@ -19,7 +19,7 @@ import com.mm543.awis.R
 import com.mm543.awis.domain.model.Product
 import kotlinx.android.synthetic.main.product_search_item.view.*
 
-class ProductSearchAdapter(private val onItemClick: ((position: Int, item: Product) -> Unit)) :
+class ProductSearchAdapter(private val onItemClick: ((item: Product) -> Unit)) :
     RecyclerView.Adapter<ProductSearchAdapter.ViewHolder>() {
     private val productItems = ArrayList<Product>()
 
@@ -41,16 +41,21 @@ class ProductSearchAdapter(private val onItemClick: ((position: Int, item: Produ
         holder.setData(productItems[position])
     }
 
-    fun setProductItemsData(items: List<Product>) {
+    fun setProducts(items: List<Product>) {
+        silentClear()
         productItems.addAll(items)
         notifyDataSetChanged()
+    }
+
+    private fun silentClear() {
+        productItems.clear()
     }
 
     inner class ViewHolder(inflate: View) : RecyclerView.ViewHolder(inflate) {
         fun setData(productItem: Product) {
             itemView.setOnClickListener {
                 productItem.let {
-                    onItemClick.invoke(adapterPosition, productItem)
+                    onItemClick.invoke(productItem)
                 }
             }
             itemView.product_image_iv.setImageResource(R.drawable.ic_baseline_info_24)
