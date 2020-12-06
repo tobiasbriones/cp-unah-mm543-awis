@@ -24,6 +24,7 @@ import com.google.android.material.navigation.NavigationView
 import com.mm543.awis.ui.checkout.CheckoutActivity
 import com.mm543.awis.ui.main.AboutDialog
 import com.mm543.awis.ui.main.SignInDialog
+import com.mm543.awis.ui.main.categories.CategoriesFragment
 import com.mm543.awis.ui.main.search.ProductSearchFragment
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -82,7 +83,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         closeDrawer()
         return when (item.itemId) {
             R.id.main_drawer_categories -> {
-                // TODO
+                showCategoriesFragment()
                 true
             }
             else -> true
@@ -121,6 +122,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
             .replace(R.id.main_content_frame, fragment)
             .commit()
-        Log.d("App", "products")
+    }
+
+    private fun showCategoriesFragment() {
+        val fragment = CategoriesFragment()
+        val fm: FragmentManager = supportFragmentManager
+        val ft = fm.beginTransaction()
+
+        ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+            .replace(R.id.main_content_frame, fragment)
+            .commit()
     }
 }

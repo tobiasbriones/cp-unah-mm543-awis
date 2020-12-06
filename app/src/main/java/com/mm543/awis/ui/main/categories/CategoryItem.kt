@@ -9,10 +9,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package com.mm543.awis.ui.main.nav
+package com.mm543.awis.ui.main.categories
 
-data class NavDrawerItem(
-    var id: Int,
-    var itemName: String,
-    var resourceId: Int
+data class CategoryItem(
+    val name: String,
+    val imageId: Int
 )

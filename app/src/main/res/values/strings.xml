@@ -46,4 +46,9 @@
     <string name="total_field">Total:</string>
     <string name="decrement_quantity_content_desc">Decrement quantity</string>
     <string name="increment_quantity_content_desc">Increment quantity</string>
+    <string name="category_image_content_desc">Category image</string>
+    <string name="categories">Categories</string>
+    <string name="offices">Offices</string>
+    <string name="notifications">Notifications</string>
+    <string name="user_photo_content_desc">User photo</string>
 </resources>
