@@ -63,7 +63,7 @@ class CheckoutActivity : AppCompatActivity(),
     }
 
     private fun initView() {
-        user_name_tv.text = "User"
+        main_nav_user_name_tv.text = "User"
         total_products_tv.text = "-"
         total_price_tv.text = "$-"
 

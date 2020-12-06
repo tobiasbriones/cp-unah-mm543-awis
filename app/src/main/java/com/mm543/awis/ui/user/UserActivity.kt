@@ -27,11 +27,11 @@ class UserActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        user_name_tv.setText("User Name")
+        main_nav_user_name_tv.text = "User Name"
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_user, menu)
+        menuInflater.inflate(R.menu.user, menu)
         return true
     }
 

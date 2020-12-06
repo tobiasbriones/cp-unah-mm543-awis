@@ -39,7 +39,7 @@ class ProductActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_product, menu)
+        menuInflater.inflate(R.menu.product, menu)
         return true
     }
 
