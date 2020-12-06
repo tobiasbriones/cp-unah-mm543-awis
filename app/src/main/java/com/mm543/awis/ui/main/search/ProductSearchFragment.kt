@@ -18,15 +18,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.mm543.awis.R
 import com.mm543.awis.domain.model.Product
 import com.mm543.awis.repository.AppProductRepository
-import com.mm543.awis.ui.main.nav.NavDrawerAdapter
-import com.mm543.awis.ui.main.nav.NavDrawerItem
 import com.mm543.awis.ui.product.ProductActivity
-import kotlinx.android.synthetic.main.fragment_product_search.*
 
 class ProductSearchFragment : Fragment() {
+
+    private val productSearchAdapter: ProductSearchAdapter = ProductSearchAdapter { position, item ->
+        onItemClick(position, item)
+    }
+
+    private lateinit var productsRV: RecyclerView
 
     // Temporal implementation!
     private lateinit var products: List<Product>
@@ -40,39 +44,21 @@ class ProductSearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpViews()
+        productsRV = view.findViewById(R.id.product_search_rv)
+        initViews()
     }
 
-    private val productSearchResultsAdapter: NavDrawerAdapter = NavDrawerAdapter { position, item ->
-        onItemClick(position, item)
+    private fun onItemClick(position: Int, item: Product) {
+        startProductActivity(item)
     }
 
-    private fun onItemClick(position: Int, item: NavDrawerItem) {
-        startProductActivity(products[position])
-    }
+    private fun initViews() {
+        val orientation = RecyclerView.VERTICAL
 
-    private fun setUpViews() {
-        rv_search_products?.layoutManager =
-            LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
-        rv_search_products?.adapter = productSearchResultsAdapter
+        productsRV.layoutManager = LinearLayoutManager(activity, orientation, false)
+        productsRV.adapter = productSearchAdapter
 
-        productSearchResultsAdapter.setNavItemsData(prepareNavItems())
-    }
-
-    private fun prepareNavItems(): List<NavDrawerItem> {
-        products = getRandomProducts()
-        val menuItemList = ArrayList<NavDrawerItem>()
-
-        products.forEach {
-            menuItemList.add(
-                NavDrawerItem(
-                    it.productId,
-                    it.name,
-                    R.drawable.ic_launcher_background
-                )
-            )
-        }
-        return menuItemList
+        productSearchAdapter.setProductItemsData(getRandomProducts())
     }
 
     private fun getRandomProducts(): List<Product> {
