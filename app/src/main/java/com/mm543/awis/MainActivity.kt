@@ -13,9 +13,12 @@ package com.mm543.awis
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -30,7 +33,10 @@ import com.mm543.awis.ui.main.categories.CategoriesFragment
 import com.mm543.awis.ui.main.search.ProductSearchFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+// I have to implement MVVM later!
+class MainActivity : AppCompatActivity(),
+    NavigationView.OnNavigationItemSelectedListener,
+    SearchView.OnQueryTextListener {
     private lateinit var navigation: DrawerLayout
     private lateinit var navigationView: NavigationView
     private lateinit var productSearchFragment: ProductSearchFragment
@@ -49,16 +55,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         navigationView.setNavigationItemSelectedListener(this)
-        fab.setOnClickListener{onSearchFabClick()}
+        search_view.setOnQueryTextListener(this)
+        fab.setOnClickListener { onSearchFabClick() }
         showProductsFragment()
-    }
-
-    private fun onSearchFabClick() {
-        showSearchWidget()
-    }
-
-    private fun showSearchWidget() {
-        TODO("Not yet implemented")
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -107,13 +106,23 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 showPaymentInformationActivity()
                 true
             }
-            R.id.main_drawer_about->{
+            R.id.main_drawer_about -> {
                 showAboutDialog()
                 true
             }
             else -> true
         }
     }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if (query != null) {
+            searchProduct(query)
+        }
+        hideSearchView()
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean = true
 
     fun onProductCategoryItemClick(category: ProductCategory) {
         showProductsFragment(category)
@@ -125,6 +134,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun closeDrawer() {
         navigation.closeDrawer(Gravity.LEFT)
+    }
+
+    private fun onSearchFabClick() {
+        showSearchWidget()
+    }
+
+    private fun showSearchWidget() {
+        search_view.visibility = View.VISIBLE
+        search_view.isIconified = false
+        fab.visibility = View.INVISIBLE
+    }
+
+    private fun hideSearchView() {
+        search_view.visibility = View.GONE
+        fab.visibility = View.VISIBLE
     }
 
     private fun showSignInDialog() {
@@ -180,5 +204,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             .replace(R.id.main_content_frame, productCategoriesFragment)
             .commit()
         currentFragment = productCategoriesFragment
+    }
+
+    private fun searchProduct(query: String) {
+        // TODO
     }
 }
