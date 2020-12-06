@@ -21,19 +21,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mm543.awis.R
 import com.mm543.awis.domain.model.Product
+import com.mm543.awis.domain.model.ProductCategory
 import com.mm543.awis.repository.AppProductRepository
 import com.mm543.awis.ui.product.ProductActivity
+import kotlinx.android.synthetic.main.fragment_product_search.*
 
 class ProductSearchFragment : Fragment() {
-
-    private val productSearchAdapter: ProductSearchAdapter = ProductSearchAdapter { position, item ->
-        onItemClick(position, item)
-    }
+    private val productSearchAdapter: ProductSearchAdapter =
+        ProductSearchAdapter { position, item ->
+            onItemClick(position, item)
+        }
 
     private lateinit var productsRV: RecyclerView
-
-    // Temporal implementation!
-    private lateinit var products: List<Product>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +45,15 @@ class ProductSearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         productsRV = view.findViewById(R.id.product_search_rv)
         initViews()
+        checkArguments()
+    }
+
+    private fun checkArguments() {
+        val categorySearch: ProductCategory? = arguments?.get("categorySearch") as ProductCategory?
+
+        if (categorySearch != null) {
+            searchByCategory(categorySearch)
+        }
     }
 
     private fun onItemClick(position: Int, item: Product) {
@@ -66,12 +74,15 @@ class ProductSearchFragment : Fragment() {
         return repository.getAll(0, 10)
     }
 
+    private fun searchByCategory(category: ProductCategory) {
+        product_search_title_tv.text = category.name
+        // TODO implement repository and call it
+    }
+
     private fun startProductActivity(product: Product) {
         val intent = Intent(activity, ProductActivity::class.java)
 
         intent.putExtra("product", product)
         startActivity(intent)
     }
-
 }
-

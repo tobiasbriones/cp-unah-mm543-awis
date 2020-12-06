@@ -52,7 +52,7 @@ class CategoriesFragment : Fragment() {
     }
 
     private fun onItemClick(item: CategoryItem) {
-        mainActivity.searchByCategory(item.productCategory)
+        mainActivity.onProductCategoryItemClick(item.productCategory)
     }
 
     private fun initViews(view: View) {

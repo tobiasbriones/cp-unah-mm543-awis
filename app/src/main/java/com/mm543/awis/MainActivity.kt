@@ -13,12 +13,12 @@ package com.mm543.awis
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.navigation.NavigationView
 import com.mm543.awis.domain.model.ProductCategory
@@ -31,12 +31,17 @@ import com.mm543.awis.ui.main.search.ProductSearchFragment
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var navigation: DrawerLayout
     private lateinit var navigationView: NavigationView
+    private lateinit var productSearchFragment: ProductSearchFragment
+    private lateinit var productCategoriesFragment: CategoriesFragment
+    private lateinit var currentFragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         navigation = findViewById(R.id.main_drawer)
         navigationView = findViewById(R.id.activity_main_nav_view)
+        productSearchFragment = ProductSearchFragment()
+        productCategoriesFragment = CategoriesFragment()
 
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -91,8 +96,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    fun searchByCategory(category: ProductCategory) {
-        // TODO
+    fun onProductCategoryItemClick(category: ProductCategory) {
+        showProductsFragment(category)
     }
 
     private fun showNavigation() {
@@ -120,22 +125,35 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun showProductsFragment() {
-        val fragment = ProductSearchFragment()
         val fm: FragmentManager = supportFragmentManager
         val ft = fm.beginTransaction()
 
         ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-            .replace(R.id.main_content_frame, fragment)
+            .replace(R.id.main_content_frame, productSearchFragment)
             .commit()
+        currentFragment = productSearchFragment
+    }
+
+    private fun showProductsFragment(category: ProductCategory) {
+        val fm: FragmentManager = supportFragmentManager
+        val ft = fm.beginTransaction()
+        val bundle = Bundle()
+
+        bundle.putSerializable("categorySearch", category)
+        productSearchFragment.arguments = bundle
+        ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+            .replace(R.id.main_content_frame, productSearchFragment)
+            .commit()
+        currentFragment = productSearchFragment
     }
 
     private fun showCategoriesFragment() {
-        val fragment = CategoriesFragment()
         val fm: FragmentManager = supportFragmentManager
         val ft = fm.beginTransaction()
 
         ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-            .replace(R.id.main_content_frame, fragment)
+            .replace(R.id.main_content_frame, productCategoriesFragment)
             .commit()
+        currentFragment = productCategoriesFragment
     }
 }
