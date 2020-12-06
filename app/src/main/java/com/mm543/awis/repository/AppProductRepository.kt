@@ -51,7 +51,11 @@ class AppProductRepository : ProductRepository {
     }
 
     override fun searchByCategory(category: ProductCategory): List<Product> {
-        TODO("Not yet implemented")
+        // TODO implement
+        // Dummy sample:
+        products.clear()
+        initFakeData()
+        return getAll(0, 10)
     }
 
     private fun initFakeData() {

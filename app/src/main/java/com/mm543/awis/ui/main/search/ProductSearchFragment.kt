@@ -51,7 +51,7 @@ class ProductSearchFragment : Fragment() {
 
     fun searchProduct(query: String) {
         val results = productRepository.searchByName(query)
-        setResults(query, results)
+        setSearchResults(query, results)
     }
 
     private fun onItemClick(item: Product) {
@@ -66,11 +66,25 @@ class ProductSearchFragment : Fragment() {
         }
     }
 
-    private fun setResults(query: String, results: List<Product>) {
-        val resultsTitle = resources.getString(R.string.product_search_results_title).format(query)
-
-        product_search_title_tv.text = resultsTitle
+    private fun setResults(title: String, results: List<Product>) {
+        product_search_title_tv.text = title
         productSearchAdapter.setProducts(results)
+    }
+
+    private fun setSearchResults(query: String, results: List<Product>) {
+        val resultsTitle = resources.getString(
+            R.string.product_search_results_title
+        ).format(query)
+
+        setResults(resultsTitle, results)
+    }
+
+    private fun setSearchByCategoryResults(category: String, results: List<Product>) {
+        val resultsTitle = resources.getString(
+            R.string.product_by_category_results_title
+        ).format(category)
+
+        setResults(resultsTitle, results)
     }
 
     private fun initViews() {
@@ -88,8 +102,8 @@ class ProductSearchFragment : Fragment() {
     }
 
     private fun searchByCategory(category: ProductCategory) {
-        product_search_title_tv.text = category.name
-        // TODO implement repository and call it
+        val results = productRepository.searchByCategory(category)
+        setSearchByCategoryResults(category.name, results)
     }
 
     private fun startProductActivity(product: Product) {
