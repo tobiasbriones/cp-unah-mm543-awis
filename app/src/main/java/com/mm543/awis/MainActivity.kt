@@ -97,6 +97,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 showPaymentInformationActivity()
                 true
             }
+            R.id.main_drawer_about->{
+                showAboutDialog()
+                true
+            }
             else -> true
         }
     }
