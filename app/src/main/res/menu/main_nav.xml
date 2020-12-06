@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="@layout/activity_main_nav_header">
+    <item
+        android:id="@+id/main_drawer_categories"
+        android:icon="@drawable/ic_baseline_category_24"
+        android:title="@string/categories" />
+    <item
+        android:id="@+id/main_drawer_offices"
+        android:icon="@drawable/ic_baseline_store_24"
+        android:title="@string/offices" />
+    <item
+        android:id="@+id/main_drawer_notifications"
+        android:icon="@drawable/ic_baseline_notifications_24"
+        android:title="@string/notifications" />
+    <item
+        android:id="@+id/main_drawer_payment"
+        android:icon="@drawable/ic_baseline_payment_24"
+        android:title="@string/payment_information" />
+    <item
+        android:id="@+id/main_drawer_settings"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="@string/action_settings" />
+    <item
+        android:id="@+id/main_drawer_about"
+        android:icon="@drawable/ic_baseline_info_24"
+        android:title="@string/about_awis" />
+</menu>
