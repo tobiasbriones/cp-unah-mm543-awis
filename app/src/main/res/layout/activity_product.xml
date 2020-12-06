@@ -14,7 +14,7 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            app:menu="@menu/menu_product"
+            app:menu="@menu/product"
             app:navigationIcon="@drawable/ic_navigation_back"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             android:layout_width="match_parent"

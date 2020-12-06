@@ -6,7 +6,7 @@
     android:padding="@dimen/spacing_16">
 
     <TextView
-        android:id="@+id/user_name_tv"
+        android:id="@+id/main_nav_user_name_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/spacing_16"
