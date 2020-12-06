@@ -51,4 +51,8 @@
     <string name="offices">Offices</string>
     <string name="notifications">Notifications</string>
     <string name="user_photo_content_desc">User photo</string>
+    <string name="add_credit_card">Add credit card</string>
+    <string name="payment_information_activity_info">Make your next purchase fast and easy by adding your payment method now!</string>
+    <string name="add">Add</string>
+    <string name="credit_card_added_msg">Credit card added successfuly</string>
 </resources>

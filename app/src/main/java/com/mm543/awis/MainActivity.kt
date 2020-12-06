@@ -23,6 +23,7 @@ import androidx.fragment.app.FragmentManager
 import com.google.android.material.navigation.NavigationView
 import com.mm543.awis.domain.model.ProductCategory
 import com.mm543.awis.ui.checkout.CheckoutActivity
+import com.mm543.awis.ui.checkout.PaymentInformationActivity
 import com.mm543.awis.ui.main.AboutDialog
 import com.mm543.awis.ui.main.SignInDialog
 import com.mm543.awis.ui.main.categories.CategoriesFragment
@@ -92,6 +93,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 showCategoriesFragment()
                 true
             }
+            R.id.main_drawer_payment -> {
+                showPaymentInformationActivity()
+                true
+            }
             else -> true
         }
     }
@@ -120,6 +125,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun startCheckoutActivity() {
         val intent = Intent(this, CheckoutActivity::class.java)
+
+        startActivity(intent)
+    }
+
+    private fun showPaymentInformationActivity() {
+        val intent = Intent(this, PaymentInformationActivity::class.java)
 
         startActivity(intent)
     }
