@@ -53,6 +53,11 @@ class ProductSearchAdapter(private val onItemClick: ((item: Product) -> Unit)) :
 
     inner class ViewHolder(inflate: View) : RecyclerView.ViewHolder(inflate) {
         fun setData(productItem: Product) {
+            val productPriceRes = itemView.context.resources.getString(
+                R.string.product_price_dollars
+            )
+            val productPriceStr = productPriceRes.format(productItem.listPrice)
+
             itemView.setOnClickListener {
                 productItem.let {
                     onItemClick.invoke(productItem)
@@ -60,6 +65,7 @@ class ProductSearchAdapter(private val onItemClick: ((item: Product) -> Unit)) :
             }
             itemView.product_image_iv.setImageResource(R.drawable.ic_baseline_info_24)
             itemView.product_name_tv.text = productItem.name
+            itemView.product_price_tv.text = productPriceStr
         }
     }
 }

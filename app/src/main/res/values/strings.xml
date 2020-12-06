@@ -58,4 +58,5 @@
     <string name="product_search_hint">Search a product</string>
     <string name="product_search_results_title">Results for: %s</string>
     <string name="product_by_category_results_title">Category: %s</string>
+    <string name="product_price_dollars">$%.2f</string>
 </resources>
