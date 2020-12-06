@@ -22,10 +22,9 @@ import com.mm543.awis.R
 import com.mm543.awis.domain.model.shopping.CartItem
 
 class CartItemListAdapter(
-    private val values: ArrayList<CartItem>,
     private val l: OnRemoveItemListener
-) :
-    RecyclerView.Adapter<CartItemListAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<CartItemListAdapter.ViewHolder>() {
+    private val items = ArrayList<CartItem>()
 
     @FunctionalInterface
     interface OnRemoveItemListener {
@@ -50,8 +49,9 @@ class CartItemListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
+        val item = items[position]
 
+        // TODO update image photo
         holder.quantityTV.text = item.quantity.toString()
         holder.nameTV.text = item.product.name
         holder.priceTV.text = item.price().toString()
@@ -59,21 +59,21 @@ class CartItemListAdapter(
     }
 
     override fun getItemCount(): Int {
-        return values.size
+        return items.size
     }
 
     fun add(position: Int, item: CartItem) {
-        values.add(position, item)
+        items.add(position, item)
         notifyItemInserted(position)
     }
 
     fun remove(position: Int) {
-        values.removeAt(position)
+        items.removeAt(position)
         notifyItemRemoved(position)
     }
 
     private fun onRemoveButtonClick(item: CartItem) {
-        remove(values.indexOf(item))
+        remove(items.indexOf(item))
         l.onCartItemRemoved(item)
     }
 }

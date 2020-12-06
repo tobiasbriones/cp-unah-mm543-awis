@@ -33,6 +33,7 @@ class CheckoutActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         cart = cartRepository.get()
+        productsAdapter = CartItemListAdapter(this)
 
         setContentView(R.layout.activity_checkout)
         setSupportActionBar(findViewById(R.id.toolbar))
@@ -73,9 +74,7 @@ class CheckoutActivity : AppCompatActivity(),
 
     private fun initProductsRV() {
         val recyclerView = findViewById<RecyclerView>(R.id.cart_products_rv)
-        val input: ArrayList<CartItem> = ArrayList()
         val layoutManager = LinearLayoutManager(this)
-        productsAdapter = CartItemListAdapter(input, this)
 
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = productsAdapter
