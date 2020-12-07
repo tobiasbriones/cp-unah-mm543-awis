@@ -5,7 +5,8 @@
     android:background="?android:attr/selectableItemBackground"
     android:orientation="horizontal"
     android:paddingHorizontal="@dimen/spacing_16"
-    android:paddingVertical="@dimen/spacing_8">
+    android:paddingTop="@dimen/spacing_8"
+    android:paddingBottom="@dimen/spacing_16">
 
     <ImageView
         android:id="@+id/product_image_iv"
