@@ -29,8 +29,12 @@ class AppCustomerRepository(
         return loadCustomer()
     }
 
-    fun set(customer: Customer) {
-        saveCustomer(customer)
+    fun set(customer: Customer?) {
+        if (customer != null) {
+            saveCustomer(customer)
+        } else {
+            deleteFile()
+        }
     }
 
     private fun loadCustomer(): Customer? = try {
@@ -58,5 +62,9 @@ class AppCustomerRepository(
         val oo = ObjectOutputStream(fos)
 
         oo.writeObject(cart)
+    }
+
+    private fun deleteFile() {
+        context.deleteFile(CUSTOMER_FILE_NAME)
     }
 }

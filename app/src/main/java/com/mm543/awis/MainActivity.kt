@@ -13,26 +13,31 @@ package com.mm543.awis
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.navigation.NavigationView
+import com.mm543.awis.domain.model.Customer
 import com.mm543.awis.domain.model.ProductCategory
 import com.mm543.awis.repository.AppCustomerRepository
 import com.mm543.awis.service.CustomerLogInService
 import com.mm543.awis.ui.checkout.CheckoutActivity
 import com.mm543.awis.ui.checkout.PaymentInformationActivity
 import com.mm543.awis.ui.main.AboutDialog
-import com.mm543.awis.ui.main.SignInDialog
+import com.mm543.awis.ui.main.LogInDialog
 import com.mm543.awis.ui.main.categories.CategoriesFragment
 import com.mm543.awis.ui.main.search.ProductSearchFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_user.*
 
 // I have to implement MVVM later!
 class MainActivity : AppCompatActivity(),
@@ -43,6 +48,8 @@ class MainActivity : AppCompatActivity(),
     private lateinit var productSearchFragment: ProductSearchFragment
     private lateinit var productCategoriesFragment: CategoriesFragment
     private lateinit var currentFragment: Fragment
+    private lateinit var menu: Menu
+    private lateinit var navUserNameTV: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +58,7 @@ class MainActivity : AppCompatActivity(),
         navigationView = findViewById(R.id.activity_main_nav_view)
         productSearchFragment = ProductSearchFragment()
         productCategoriesFragment = CategoriesFragment()
+        navUserNameTV = navigationView.getHeaderView(0).findViewById(R.id.main_nav_user_name_tv)
 
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -59,11 +67,12 @@ class MainActivity : AppCompatActivity(),
         search_view.setOnQueryTextListener(this)
         fab.setOnClickListener { onSearchFabClick() }
         showProductsFragment()
+        login()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main, menu)
-        menu?.let { setLogMenuItems(it) }
+        setMenu(menu)
         return true
     }
 
@@ -86,11 +95,11 @@ class MainActivity : AppCompatActivity(),
                 true
             }
             R.id.action_login -> {
-                showSignInDialog()
+                showLogInDialog()
                 true
             }
             R.id.action_logout -> {
-                // TODO
+                logout()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -130,12 +139,66 @@ class MainActivity : AppCompatActivity(),
         showProductsFragment(category)
     }
 
+    private fun setMenu(menu: Menu?) {
+        if (menu != null) {
+            this.menu = menu
+            setLogMenuItems()
+        }
+    }
+
+    private fun setLogin(customer: Customer) {
+        AppCustomerRepository(this).set(customer)
+        login()
+    }
+
+    private fun setCustomerLogIn(customer: Customer?) {
+        if (customer != null) {
+            navUserNameTV.text = customer.firstName
+        }
+        else {
+            navUserNameTV.text = "No user"
+        }
+        setLogMenuItems()
+    }
+
+    private fun onSearchFabClick() {
+        showSearchWidget()
+    }
+
+    private fun onLogIn(credentials: LogInDialog.CustomerCredentials) {
+        val customer = Customer(
+            credentials.name,
+            "",
+            "",
+            "",
+            credentials.password
+        )
+        val isLoginValid = CustomerLogInService().logIn(customer)
+
+        if (isLoginValid) {
+            setLogin(customer)
+        } else {
+            showInvalidLoginDialog()
+        }
+    }
+
+    private fun login() {
+        val customer = AppCustomerRepository(this).get()
+        setCustomerLogIn(customer)
+    }
+
+    private fun logout() {
+        AppCustomerRepository(this).set(null)
+        setCustomerLogIn(null)
+    }
+
     private fun isUserLoggedIn(): Boolean {
         val customer = AppCustomerRepository(this).get()
         return customer != null && CustomerLogInService().logIn(customer)
     }
 
-    private fun setLogMenuItems(menu: Menu) {
+    private fun setLogMenuItems() {
+        if (!this::menu.isInitialized) return
         val logInItem = menu.findItem(R.id.action_login)
         val logOutItem = menu.findItem(R.id.action_logout)
 
@@ -156,10 +219,6 @@ class MainActivity : AppCompatActivity(),
         navigation.closeDrawer(Gravity.LEFT)
     }
 
-    private fun onSearchFabClick() {
-        showSearchWidget()
-    }
-
     private fun showSearchWidget() {
         search_view.visibility = View.VISIBLE
         search_view.isIconified = false
@@ -171,9 +230,16 @@ class MainActivity : AppCompatActivity(),
         fab.visibility = View.VISIBLE
     }
 
-    private fun showSignInDialog() {
-        val newFragment = SignInDialog()
+    private fun showLogInDialog() {
+        val newFragment = LogInDialog { credentials -> onLogIn(credentials) }
         newFragment.show(supportFragmentManager, "dialog")
+    }
+
+    private fun showInvalidLoginDialog() {
+        val dialog = AlertDialog.Builder(this)
+            .setMessage(R.string.invalid_login_msg)
+            .setPositiveButton(R.string.ok) { dialog, which -> showLogInDialog() }
+        dialog.show()
     }
 
     private fun showAboutDialog() {

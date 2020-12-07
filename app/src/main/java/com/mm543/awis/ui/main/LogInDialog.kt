@@ -14,21 +14,41 @@ package com.mm543.awis.ui.main
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
+import android.widget.EditText
 import androidx.fragment.app.DialogFragment
 import com.mm543.awis.R
 
-class SignInDialog : DialogFragment() {
+class LogInDialog(
+    private val onLogIn: ((credentials: CustomerCredentials) -> Unit)
+) : DialogFragment() {
+
+    data class CustomerCredentials(
+        val name: String,
+        val password: String
+    )
+
+    private lateinit var userNameET: EditText
+    private lateinit var passwordET: EditText
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val inflater = requireActivity().layoutInflater
+        val view = inflater.inflate(R.layout.dialog_login, null)
+        userNameET = view.findViewById(R.id.customer_login_username_et)
+        passwordET = view.findViewById(R.id.customer_login_password_et)
+
         return activity?.let {
             val builder = AlertDialog.Builder(it)
-            val inflater = requireActivity().layoutInflater
 
-            builder.setView(inflater.inflate(R.layout.dialog_signin, null))
+            builder.setView(view)
                 .setPositiveButton(
                     R.string.signin
                 ) { dialog, id ->
-
+                    onLogIn(
+                        CustomerCredentials(
+                            getUsername(),
+                            getPassword()
+                        )
+                    )
                 }
                 .setNegativeButton(
                     R.string.cancel
@@ -39,4 +59,11 @@ class SignInDialog : DialogFragment() {
         } ?: throw IllegalStateException("Activity cannot be null")
     }
 
+    private fun getUsername(): String {
+        return userNameET.text.toString()
+    }
+
+    private fun getPassword(): String {
+        return passwordET.text.toString()
+    }
 }

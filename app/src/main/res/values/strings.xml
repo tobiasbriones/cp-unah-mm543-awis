@@ -72,4 +72,8 @@
         </a>
     </string>
     <string name="copyright">Copyright © 2020 Tobias Briones. All rights reserved.</string>
+    <string name="password">Password</string>
+    <string name="user_name">User name</string>
+    <string name="access_to_awis">Access to AWIS</string>
+    <string name="invalid_login_msg">Invalid login credentials</string>
 </resources>

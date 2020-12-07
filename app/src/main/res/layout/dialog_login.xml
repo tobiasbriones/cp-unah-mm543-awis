@@ -18,23 +18,23 @@
         android:gravity="center"
         android:layout_gravity="center"
         android:textSize="18sp"
-        android:text="Entrar a AWIS">
+        android:text="@string/access_to_awis">
 
     </TextView>
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/customer_login_username_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
         android:layout_marginTop="16dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
-        android:hint="Nombre de usuario"
+        android:hint="@string/user_name"
         android:inputType="textEmailAddress" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/customer_login_password_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
@@ -42,6 +42,6 @@
         android:layout_marginRight="4dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif"
-        android:hint="Contraseña"
+        android:hint="@string/password"
         android:inputType="textPassword" />
 </LinearLayout>
