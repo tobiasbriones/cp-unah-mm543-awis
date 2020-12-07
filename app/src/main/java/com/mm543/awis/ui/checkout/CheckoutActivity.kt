@@ -98,8 +98,8 @@ class CheckoutActivity : AppCompatActivity(),
     }
 
     private fun updateResumeInfo() {
-        total_products_tv.text = cart.totalItems().toString()
-        total_price_tv.text = cart.totalPrice().toString()
+        total_products_tv.text = cart.totalItems.toString()
+        total_price_tv.text = cart.totalPrice.toString()
     }
 
     private fun navigateBack() {

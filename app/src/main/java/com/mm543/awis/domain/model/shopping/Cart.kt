@@ -13,6 +13,7 @@ package com.mm543.awis.domain.model.shopping
 
 import com.mm543.awis.domain.model.Product
 import java.io.Serializable
+import java.util.function.Consumer
 
 object CartConstants {
     const val DEF_PRODUCT_QUANTITY: Int = 1
@@ -20,54 +21,50 @@ object CartConstants {
 
 class Cart : Serializable, Iterable<CartItem> {
     private val items = ArrayList<CartItem>()
-    private var totalPrice = 0.0
+    val totalItems: Int = items.size
+    val totalPrice: Double get() = computeTotalPrice()
 
     override fun iterator(): Iterator<CartItem> = items.iterator()
 
-    fun totalItems(): Int = items.size
-    fun totalPrice(): Double = String.format("%.2f", totalPrice).toDouble()
-
     fun add(item: CartItem) {
+        if (items.contains(item)) return
         items.add(item)
-        onItemAdded(item)
+    }
+
+    fun findItemOf(product: Product): CartItem? {
+        var item: CartItem? = null
+
+        for (current in items) {
+            if (current.product == product) {
+                item = current
+                break
+            }
+        }
+        return item
     }
 
     fun remove(item: CartItem) {
-        val itemRemoved = items.remove(item)
-
-        if (itemRemoved) onItemRemoved(item)
+        items.remove(item)
     }
 
-    fun setItemAt(oldItem: CartItem, newItem: CartItem) {
-        val index = items.indexOf(oldItem)
+    private fun computeTotalPrice(): Double {
+        var price = 0.0
 
-        if (index != -1) {
-            items[index] = newItem
-
-            onItemRemoved(oldItem)
-            onItemAdded(newItem)
-        }
-    }
-
-    private fun onItemAdded(item: CartItem) {
-        totalPrice += item.price()
-    }
-
-    private fun onItemRemoved(item: CartItem) {
-        totalPrice -= item.price()
+        items.forEach(Consumer { price += it.price })
+        return price
     }
 }
 
-data class CartItem(
+class CartItem(
     val product: Product,
-    val quantity: Int = CartConstants.DEF_PRODUCT_QUANTITY
+    var quantity: Int = CartConstants.DEF_PRODUCT_QUANTITY
 ) : Serializable {
+    val name: String = product.name
+    val price: Double = product.listPrice * quantity
+
     init {
         validate()
     }
-
-    fun name(): String = product.name
-    fun price(): Double = product.listPrice * quantity
 
     private fun validate() {
         validateQuantity()

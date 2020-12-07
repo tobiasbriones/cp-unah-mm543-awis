@@ -54,7 +54,7 @@ class CartItemListAdapter(
         // TODO update image photo
         holder.quantityTV.text = item.quantity.toString()
         holder.nameTV.text = item.product.name
-        holder.priceTV.text = item.price().toString()
+        holder.priceTV.text = item.price.toString()
         holder.removeButton.setOnClickListener { onRemoveButtonClick(item) }
     }
 
