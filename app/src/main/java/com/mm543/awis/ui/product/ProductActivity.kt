@@ -111,10 +111,11 @@ class ProductActivity : AppCompatActivity() {
 
     private fun update() {
         product_name_text.text = product?.name
+        product_code_text.text = product?.productNumber.toString()
         product_color_text.text = product?.color.toString()
         product_price_text.text = product?.listPrice.toString()
 
-        product_size_text.text = "Grande"
+        product_size_text.text = "Big"
         product_weight_text.text = "100lb"
         updateProductQuantity()
     }
