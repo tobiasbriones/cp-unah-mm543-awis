@@ -13,7 +13,6 @@ package com.mm543.awis
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
@@ -25,6 +24,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.navigation.NavigationView
 import com.mm543.awis.domain.model.ProductCategory
+import com.mm543.awis.repository.AppCustomerRepository
+import com.mm543.awis.service.CustomerLogInService
 import com.mm543.awis.ui.checkout.CheckoutActivity
 import com.mm543.awis.ui.checkout.PaymentInformationActivity
 import com.mm543.awis.ui.main.AboutDialog
@@ -62,6 +63,7 @@ class MainActivity : AppCompatActivity(),
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main, menu)
+        menu?.let { setLogMenuItems(it) }
         return true
     }
 
@@ -126,6 +128,24 @@ class MainActivity : AppCompatActivity(),
 
     fun onProductCategoryItemClick(category: ProductCategory) {
         showProductsFragment(category)
+    }
+
+    private fun isUserLoggedIn(): Boolean {
+        val customer = AppCustomerRepository(this).get()
+        return customer != null && CustomerLogInService().logIn(customer)
+    }
+
+    private fun setLogMenuItems(menu: Menu) {
+        val logInItem = menu.findItem(R.id.action_login)
+        val logOutItem = menu.findItem(R.id.action_logout)
+
+        if (isUserLoggedIn()) {
+            logInItem.isVisible = false
+            logOutItem.isVisible = true
+        } else {
+            logInItem.isVisible = true
+            logOutItem.isVisible = false
+        }
     }
 
     private fun showNavigation() {
