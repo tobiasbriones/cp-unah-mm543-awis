@@ -13,7 +13,6 @@ package com.mm543.awis
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
@@ -36,8 +35,8 @@ import com.mm543.awis.ui.main.AboutDialog
 import com.mm543.awis.ui.main.LogInDialog
 import com.mm543.awis.ui.main.categories.CategoriesFragment
 import com.mm543.awis.ui.main.search.ProductSearchFragment
+import com.mm543.awis.ui.user.UserActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.content_user.*
 
 // I have to implement MVVM later!
 class MainActivity : AppCompatActivity(),
@@ -64,6 +63,8 @@ class MainActivity : AppCompatActivity(),
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         navigationView.setNavigationItemSelectedListener(this)
+        navigationView.getHeaderView(0).findViewById<View>(R.id.main_nav_user_item)
+            .setOnClickListener { onUserHeaderItemClick() }
         search_view.setOnQueryTextListener(this)
         fab.setOnClickListener { onSearchFabClick() }
         showProductsFragment()
@@ -143,26 +144,15 @@ class MainActivity : AppCompatActivity(),
         showProductsFragment(category)
     }
 
-    private fun setMenu(menu: Menu?) {
-        if (menu != null) {
-            this.menu = menu
-            setLogMenuItems()
-        }
-    }
+    private fun onUserHeaderItemClick() {
+        val customer = AppCustomerRepository(this).get()
 
-    private fun setLogin(customer: Customer) {
-        AppCustomerRepository(this).set(customer)
-        login()
-    }
-
-    private fun setCustomerLogIn(customer: Customer?) {
         if (customer != null) {
-            navUserNameTV.text = customer.firstName
+            startUserActivity()
         }
         else {
-            navUserNameTV.text = "No user"
+            showLogInDialog()
         }
-        setLogMenuItems()
     }
 
     private fun onSearchFabClick() {
@@ -184,6 +174,27 @@ class MainActivity : AppCompatActivity(),
         } else {
             showInvalidLoginDialog()
         }
+    }
+
+    private fun setMenu(menu: Menu?) {
+        if (menu != null) {
+            this.menu = menu
+            setLogMenuItems()
+        }
+    }
+
+    private fun setLogin(customer: Customer) {
+        AppCustomerRepository(this).set(customer)
+        login()
+    }
+
+    private fun setCustomerLogIn(customer: Customer?) {
+        if (customer != null) {
+            navUserNameTV.text = customer.firstName
+        } else {
+            navUserNameTV.text = "No user"
+        }
+        setLogMenuItems()
     }
 
     private fun login() {
@@ -253,6 +264,12 @@ class MainActivity : AppCompatActivity(),
 
     private fun startCheckoutActivity() {
         val intent = Intent(this, CheckoutActivity::class.java)
+
+        startActivity(intent)
+    }
+
+    private fun startUserActivity() {
+        val intent = Intent(this, UserActivity::class.java)
 
         startActivity(intent)
     }
