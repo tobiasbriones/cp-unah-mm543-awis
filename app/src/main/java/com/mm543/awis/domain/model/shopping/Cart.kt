@@ -21,7 +21,7 @@ class Cart : Serializable, Iterable<CartItem> {
     }
 
     private val items = ArrayList<CartItem>()
-    val totalItems: Int = items.size
+    val totalItems: Int get() = items.size
     val totalPrice: Double get() = computeTotalPrice()
 
     override fun iterator(): Iterator<CartItem> = items.iterator()
