@@ -16,18 +16,23 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.mm543.awis.R
+import com.mm543.awis.domain.model.Customer
+import com.mm543.awis.repository.AppCustomerRepository
 import kotlinx.android.synthetic.main.content_user.*
 
 class UserActivity : AppCompatActivity() {
+    private lateinit var customer: Customer
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user)
+        customer = getCustomer()
 
+        setContentView(R.layout.activity_user)
         setSupportActionBar(findViewById(R.id.toolbar))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        main_nav_user_name_tv.text = "User Name"
+        update()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -43,11 +48,26 @@ class UserActivity : AppCompatActivity() {
         return true
     }
 
+    private fun getCustomer(): Customer {
+        val customer = AppCustomerRepository(this).get()
+
+        if (customer == null) {
+            finish()
+        }
+        return customer!!
+    }
+
+    private fun update() {
+        main_nav_user_name_tv.text = customer.firstName
+        user_name_edit_text.setText(customer.firstName)
+        email_address_edit_text.setText(customer.emailAddress)
+    }
+
     private fun navigateBack() {
         onBackPressed()
     }
 
     private fun save() {
-
+        // TODO
     }
 }
