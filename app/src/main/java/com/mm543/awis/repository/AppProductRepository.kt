@@ -15,6 +15,7 @@ import com.mm543.awis.domain.model.Product
 import com.mm543.awis.domain.model.ProductCategory
 import com.mm543.awis.domain.model.ProductModel
 import com.mm543.awis.domain.repository.ProductRepository
+import java.text.DecimalFormat
 import java.time.LocalDateTime
 import java.util.*
 import kotlin.collections.ArrayList
@@ -69,7 +70,9 @@ class AppProductRepository : ProductRepository {
     }
 
     private fun randomProduct(): Product {
+        val df2 = DecimalFormat("#.##")
         val randomId = (Math.random() * 1000).toInt()
+        val price = df2.format(Math.random() * 1500).toDouble()
         return Product(
             randomId,
             randomProductModel(randomId),
@@ -77,8 +80,8 @@ class AppProductRepository : ProductRepository {
             randomId,
             0,
             0,
-            Math.random() * 1500,
-            0.0
+            price,
+            price
         )
     }
 
