@@ -67,6 +67,10 @@ class MainActivity : AppCompatActivity(),
         search_view.setOnQueryTextListener(this)
         fab.setOnClickListener { onSearchFabClick() }
         showProductsFragment()
+    }
+
+    override fun onResume() {
+        super.onResume()
         login()
     }
 

@@ -18,10 +18,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mm543.awis.R
+import com.mm543.awis.domain.model.Customer
 import com.mm543.awis.domain.model.shopping.Cart
 import com.mm543.awis.domain.model.shopping.CartItem
 import com.mm543.awis.repository.AppCartRepository
+import com.mm543.awis.repository.AppCustomerRepository
 import com.mm543.awis.repository.IOInternalStorageException
+import com.mm543.awis.service.CustomerLogInService
+import com.mm543.awis.ui.main.LogInDialog
 import kotlinx.android.synthetic.main.content_checkout.*
 
 class CheckoutActivity : AppCompatActivity(),
@@ -29,6 +33,7 @@ class CheckoutActivity : AppCompatActivity(),
     private val cartRepository = AppCartRepository(this)
     private lateinit var cart: Cart
     private lateinit var productsAdapter: CartItemListAdapter
+    private var customer: Customer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +45,7 @@ class CheckoutActivity : AppCompatActivity(),
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         initView()
+        login()
         update()
     }
 
@@ -57,6 +63,10 @@ class CheckoutActivity : AppCompatActivity(),
     }
 
     private fun onNextButtonClick() {
+        if (customer == null) {
+            showLogInDialog()
+            return
+        }
         showPayDialog()
     }
 
@@ -65,6 +75,34 @@ class CheckoutActivity : AppCompatActivity(),
 
         showInfoDialog(msg)
         update()
+    }
+
+    private fun onLogIn(credentials: LogInDialog.CustomerCredentials) {
+        val customer = Customer(
+            credentials.name,
+            "",
+            "",
+            "",
+            credentials.password
+        )
+        val isLoginValid = CustomerLogInService().logIn(customer)
+
+        if (isLoginValid) {
+            setLogin(customer)
+        } else {
+            showInvalidLoginDialog()
+        }
+    }
+
+    private fun setCustomer(value: Customer?) {
+        customer = value
+
+        updateUserInfo()
+    }
+
+    private fun setLogin(customer: Customer) {
+        AppCustomerRepository(this).set(customer)
+        login()
     }
 
     private fun initView() {
@@ -88,9 +126,13 @@ class CheckoutActivity : AppCompatActivity(),
     }
 
     private fun updateUserInfo() {
-        main_nav_user_name_tv.text = "User"
-        total_products_tv.text = "-"
-        total_price_tv.text = "$-"
+        val cust = customer
+
+        if (cust != null) {
+            main_nav_user_name_tv.text = cust.firstName
+        } else {
+            main_nav_user_name_tv.text = "No user"
+        }
     }
 
     private fun updateProductsRV() {
@@ -120,11 +162,35 @@ class CheckoutActivity : AppCompatActivity(),
         newFragment.show(supportFragmentManager, "dialog")
     }
 
+    private fun showLogInDialog() {
+        val newFragment = LogInDialog { credentials -> onLogIn(credentials) }
+        newFragment.show(supportFragmentManager, "dialog")
+    }
+
+    private fun showInvalidLoginDialog() {
+        val dialog = AlertDialog.Builder(this)
+            .setMessage(R.string.invalid_login_msg)
+            .setPositiveButton(R.string.ok) { dialog, which -> showLogInDialog() }
+        dialog.show()
+    }
+
     private fun saveCart() {
         try {
             cartRepository.set(cart)
         } catch (e: IOInternalStorageException) {
             e.message?.let { onSaveCartFailed(it) }
+        }
+    }
+
+    private fun login() {
+        val customer = AppCustomerRepository(this).get()
+
+        if (customer != null) {
+            val isValidLogin = CustomerLogInService().logIn(customer)
+
+            if (isValidLogin) {
+                setCustomer(customer)
+            }
         }
     }
 }
