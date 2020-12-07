@@ -24,7 +24,6 @@ import com.mm543.awis.domain.model.ProductCategory
 import com.mm543.awis.repository.AppProductCategoryRepository
 
 class CategoriesFragment : Fragment() {
-
     private val categoriesAdapter: CategoriesAdapter = CategoriesAdapter { item ->
         onItemClick(item)
     }
@@ -92,6 +91,4 @@ class CategoriesFragment : Fragment() {
         val repository = AppProductCategoryRepository()
         return repository.getAll(0, 10)
     }
-
 }
-

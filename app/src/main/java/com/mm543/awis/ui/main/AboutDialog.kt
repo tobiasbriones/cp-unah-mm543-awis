@@ -20,7 +20,6 @@ import androidx.fragment.app.DialogFragment
 import com.mm543.awis.R
 
 class AboutDialog : DialogFragment() {
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val inflater = requireActivity().layoutInflater
         val view = inflater.inflate(R.layout.dialog_about, null)
@@ -39,5 +38,4 @@ class AboutDialog : DialogFragment() {
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
     }
-
 }

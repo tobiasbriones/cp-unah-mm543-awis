@@ -33,9 +33,11 @@ class AppCartRepository(
 
     private fun loadCart(): Cart = try {
         context.openFileInput(CART_FILE_NAME).use { read(it) }
-    } catch (e: FileNotFoundException) {
+    }
+    catch (e: FileNotFoundException) {
         Cart()
-    } catch (e: Exception) {
+    }
+    catch (e: Exception) {
         val msg = "Fail to open user shopping cart"
         throw IOInternalStorageException(msg)
     }
@@ -50,7 +52,8 @@ class AppCartRepository(
 
     private fun saveCart(cart: Cart) = try {
         context.openFileOutput(CART_FILE_NAME, Context.MODE_PRIVATE).use { save(it, cart) }
-    } catch (e: Exception) {
+    }
+    catch (e: Exception) {
         val msg = "Fail to save cart"
         throw IOInternalStorageException(msg)
     }

@@ -29,7 +29,7 @@ import com.mm543.awis.ui.main.LogInDialog
 import kotlinx.android.synthetic.main.content_checkout.*
 
 class CheckoutActivity : AppCompatActivity(),
-    CartItemListAdapter.OnRemoveItemListener {
+                         CartItemListAdapter.OnRemoveItemListener {
     private val cartRepository = AppCartRepository(this)
     private lateinit var cart: Cart
     private lateinit var productsAdapter: CartItemListAdapter
@@ -89,7 +89,8 @@ class CheckoutActivity : AppCompatActivity(),
 
         if (isLoginValid) {
             setLogin(customer)
-        } else {
+        }
+        else {
             showInvalidLoginDialog()
         }
     }
@@ -130,7 +131,8 @@ class CheckoutActivity : AppCompatActivity(),
 
         if (cust != null) {
             main_nav_user_name_tv.text = cust.firstName
-        } else {
+        }
+        else {
             main_nav_user_name_tv.text = "No user"
         }
     }
@@ -177,7 +179,8 @@ class CheckoutActivity : AppCompatActivity(),
     private fun saveCart() {
         try {
             cartRepository.set(cart)
-        } catch (e: IOInternalStorageException) {
+        }
+        catch (e: IOInternalStorageException) {
             e.message?.let { onSaveCartFailed(it) }
         }
     }

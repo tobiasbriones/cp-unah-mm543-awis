@@ -62,7 +62,8 @@ class AddCreditCardDialog(
         val cardNumberStr = cardNumberET.text.toString()
         return try {
             cardNumberStr.toInt()
-        } catch (e: NumberFormatException) {
+        }
+        catch (e: NumberFormatException) {
             0
         }
     }
@@ -75,7 +76,8 @@ class AddCreditCardDialog(
         val cardCodeStr = cardCodeET.text.toString()
         return try {
             cardCodeStr.toInt()
-        } catch (e: NumberFormatException) {
+        }
+        catch (e: NumberFormatException) {
             0
         }
     }

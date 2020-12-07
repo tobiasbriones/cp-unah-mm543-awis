@@ -18,7 +18,6 @@ import androidx.fragment.app.DialogFragment
 import com.mm543.awis.R
 
 class PayWithCreditCardDialog : DialogFragment() {
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
@@ -38,5 +37,4 @@ class PayWithCreditCardDialog : DialogFragment() {
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
     }
-
 }

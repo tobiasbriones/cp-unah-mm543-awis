@@ -32,14 +32,16 @@ class AppCustomerRepository(
     fun set(customer: Customer?) {
         if (customer != null) {
             saveCustomer(customer)
-        } else {
+        }
+        else {
             deleteFile()
         }
     }
 
     private fun loadCustomer(): Customer? = try {
         context.openFileInput(CUSTOMER_FILE_NAME).use { read(it) }
-    } catch (e: Exception) {
+    }
+    catch (e: Exception) {
         null
     }
 
@@ -53,7 +55,8 @@ class AppCustomerRepository(
 
     private fun saveCustomer(customer: Customer) = try {
         context.openFileOutput(CUSTOMER_FILE_NAME, Context.MODE_PRIVATE).use { save(it, customer) }
-    } catch (e: Exception) {
+    }
+    catch (e: Exception) {
         val msg = "Fail to save cart"
         throw IOInternalStorageException(msg)
     }

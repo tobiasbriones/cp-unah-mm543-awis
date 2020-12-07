@@ -40,8 +40,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 // I have to implement MVVM later!
 class MainActivity : AppCompatActivity(),
-    NavigationView.OnNavigationItemSelectedListener,
-    SearchView.OnQueryTextListener {
+                     NavigationView.OnNavigationItemSelectedListener,
+                     SearchView.OnQueryTextListener {
     private lateinit var navigation: DrawerLayout
     private lateinit var navigationView: NavigationView
     private lateinit var productSearchFragment: ProductSearchFragment
@@ -171,7 +171,8 @@ class MainActivity : AppCompatActivity(),
 
         if (isLoginValid) {
             setLogin(customer)
-        } else {
+        }
+        else {
             showInvalidLoginDialog()
         }
     }
@@ -191,7 +192,8 @@ class MainActivity : AppCompatActivity(),
     private fun setCustomerLogIn(customer: Customer?) {
         if (customer != null) {
             navUserNameTV.text = customer.firstName
-        } else {
+        }
+        else {
             navUserNameTV.text = "No user"
         }
         setLogMenuItems()
@@ -220,7 +222,8 @@ class MainActivity : AppCompatActivity(),
         if (isUserLoggedIn()) {
             logInItem.isVisible = false
             logOutItem.isVisible = true
-        } else {
+        }
+        else {
             logInItem.isVisible = true
             logOutItem.isVisible = false
         }

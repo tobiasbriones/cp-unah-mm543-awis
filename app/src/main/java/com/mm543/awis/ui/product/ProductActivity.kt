@@ -82,7 +82,8 @@ class ProductActivity : AppCompatActivity() {
         val quantityStr = product_quantity_edit_text.text.toString()
         return try {
             quantityStr.toInt()
-        } catch (e: NumberFormatException) {
+        }
+        catch (e: NumberFormatException) {
             0
         }
     }
@@ -97,7 +98,8 @@ class ProductActivity : AppCompatActivity() {
         val repository = AppCartRepository(this)
         return try {
             repository.get()
-        } catch (e: Exception) {
+        }
+        catch (e: Exception) {
             repository.set(Cart())
             Cart()
         }
@@ -126,7 +128,8 @@ class ProductActivity : AppCompatActivity() {
 
         if (productCartItem != null) {
             setQuantity(productCartItem.quantity)
-        } else {
+        }
+        else {
             setQuantity(Cart.DEF_PRODUCT_QUANTITY)
         }
     }
