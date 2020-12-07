@@ -15,11 +15,11 @@ import com.mm543.awis.domain.model.Product
 import java.io.Serializable
 import java.util.function.Consumer
 
-object CartConstants {
-    const val DEF_PRODUCT_QUANTITY: Int = 1
-}
-
 class Cart : Serializable, Iterable<CartItem> {
+    companion object {
+        const val DEF_PRODUCT_QUANTITY: Int = 1
+    }
+
     private val items = ArrayList<CartItem>()
     val totalItems: Int = items.size
     val totalPrice: Double get() = computeTotalPrice()
@@ -52,28 +52,5 @@ class Cart : Serializable, Iterable<CartItem> {
 
         items.forEach(Consumer { price += it.price })
         return price
-    }
-}
-
-class CartItem(
-    val product: Product,
-    var quantity: Int = CartConstants.DEF_PRODUCT_QUANTITY
-) : Serializable {
-    val name: String = product.name
-    val price: Double = product.listPrice * quantity
-
-    init {
-        validate()
-    }
-
-    private fun validate() {
-        validateQuantity()
-    }
-
-    private fun validateQuantity() {
-        if (quantity < 0) {
-            val msg = "Quantity is a non-negative integer number: $quantity"
-            throw RuntimeException(msg)
-        }
     }
 }

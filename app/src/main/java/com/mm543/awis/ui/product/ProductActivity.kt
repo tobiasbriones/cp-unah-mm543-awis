@@ -19,7 +19,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.mm543.awis.R
 import com.mm543.awis.domain.model.Product
 import com.mm543.awis.domain.model.shopping.Cart
-import com.mm543.awis.domain.model.shopping.CartConstants
 import com.mm543.awis.domain.model.shopping.CartItem
 import com.mm543.awis.domain.usecase.AddProductToCartUseCase
 import com.mm543.awis.repository.AppCartRepository
@@ -114,9 +113,8 @@ class ProductActivity : AppCompatActivity() {
 
         if (productCartItem != null) {
             setQuantity(productCartItem.quantity)
-        }
-        else {
-            setQuantity(CartConstants.DEF_PRODUCT_QUANTITY)
+        } else {
+            setQuantity(Cart.DEF_PRODUCT_QUANTITY)
         }
     }
 
