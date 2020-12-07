@@ -16,11 +16,13 @@ import com.mm543.awis.domain.model.shopping.Cart
 import com.mm543.awis.domain.repository.CartRepository
 import java.io.*
 
-private const val CART_FILE_NAME = "shopping_cart"
-
 class AppCartRepository(
     private val context: Context
 ) : CartRepository {
+    companion object {
+        private const val CART_FILE_NAME = "shopping_cart"
+    }
+
     override fun get(): Cart {
         return loadCart()
     }
@@ -31,11 +33,9 @@ class AppCartRepository(
 
     private fun loadCart(): Cart = try {
         context.openFileInput(CART_FILE_NAME).use { read(it) }
-    }
-    catch (e: FileNotFoundException){
+    } catch (e: FileNotFoundException) {
         Cart()
-    }
-    catch (e: Exception) {
+    } catch (e: Exception) {
         val msg = "Fail to open user shopping cart"
         throw IOInternalStorageException(msg)
     }
