@@ -11,7 +11,9 @@
 
 package com.mm543.awis.domain.model
 
-data class EmailAddress(
-    val businessEntity: BusinessEntity,
+data class Customer(
+    val firstName: String,
+    val middleName: String,
+    val lastName: String,
     val emailAddress: String
 )
