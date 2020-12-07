@@ -142,7 +142,7 @@ class ProductActivity : AppCompatActivity() {
     }
 
     private fun showProductAddedToCartSuccessfullyDialog() {
-        val msg = "${getQuantity()} ${product?.name} added to the card"
+        val msg = "${getQuantity()} ${product?.name} added to the cart"
         val dialog = AlertDialog.Builder(this)
             .setMessage(msg)
             .setPositiveButton(R.string.ok, null)
