@@ -15,6 +15,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.mm543.awis.R
 import com.mm543.awis.domain.model.Product
@@ -64,6 +65,7 @@ class ProductActivity : AppCompatActivity() {
         val quantity = getQuantity()
 
         product?.let { addToCartUseCase.execute(it, quantity) }
+        showProductAddedToCartSuccessfullyDialog()
     }
 
     private fun onIncrementQuantityButtonClick() {
@@ -89,6 +91,16 @@ class ProductActivity : AppCompatActivity() {
         if (quantity < 0) return
         val quantityStr = quantity.toString()
         product_quantity_edit_text.setText(quantityStr)
+    }
+
+    private fun getCart(): Cart {
+        val repository = AppCartRepository(this)
+        return try {
+            repository.get()
+        } catch (e: Exception) {
+            repository.set(Cart())
+            Cart()
+        }
     }
 
     private fun initView() {
@@ -128,13 +140,12 @@ class ProductActivity : AppCompatActivity() {
         onBackPressed()
     }
 
-    private fun getCart(): Cart {
-        val repository = AppCartRepository(this)
-        return try {
-            repository.get()
-        } catch (e: Exception) {
-            repository.set(Cart())
-            Cart()
-        }
+    private fun showProductAddedToCartSuccessfullyDialog() {
+        val msg = "${getQuantity()} ${product?.name} added to the card"
+        val dialog = AlertDialog.Builder(this)
+            .setMessage(msg)
+            .setPositiveButton(R.string.ok, null)
+            .create()
+        dialog.show()
     }
 }
