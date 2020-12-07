@@ -59,4 +59,17 @@
     <string name="product_search_results_title">Results for: %s</string>
     <string name="product_by_category_results_title">Category: %s</string>
     <string name="product_price_dollars">$%.2f</string>
+    <string name="about_msg">
+        Android app development of AWIS: Adventure Works Information Systems based on the MS
+        SQLServer Adventure Works database.
+    </string>
+    <string name="about_team_msg">
+        Developed by Tobias Briones and Juan Varela
+    </string>
+    <string name="about_github">
+        <a href="https://github.com/TobiasBriones-Team/course.mm543.awis">
+            GitHub
+        </a>
+    </string>
+    <string name="copyright">Copyright © 2020 Tobias Briones. All rights reserved.</string>
 </resources>
