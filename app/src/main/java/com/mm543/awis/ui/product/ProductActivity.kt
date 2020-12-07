@@ -15,15 +15,19 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.mm543.awis.R
 import com.mm543.awis.domain.model.Product
+import com.mm543.awis.domain.model.shopping.Cart
 import com.mm543.awis.domain.model.shopping.CartConstants
+import com.mm543.awis.domain.model.shopping.CartItem
+import com.mm543.awis.domain.usecase.AddProductToCartUseCase
+import com.mm543.awis.repository.AppCartRepository
 import com.mm543.awis.ui.checkout.CheckoutActivity
 import kotlinx.android.synthetic.main.content_product.*
 
-class ProductActivity : AppCompatActivity(), View.OnClickListener {
+class ProductActivity : AppCompatActivity() {
+    private val cartRepository = AppCartRepository(this)
     private var product: Product? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +40,11 @@ class ProductActivity : AppCompatActivity(), View.OnClickListener {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         initView()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        update()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -51,8 +60,21 @@ class ProductActivity : AppCompatActivity(), View.OnClickListener {
         return true
     }
 
-    override fun onClick(v: View?) {
-        TODO("Not yet implemented")
+    private fun onAddToCartButtonClick() {
+        val addToCartUseCase = AddProductToCartUseCase(cartRepository)
+        val quantity = getQuantity()
+
+        product?.let { addToCartUseCase.execute(it, quantity) }
+    }
+
+    private fun onIncrementQuantityButtonClick() {
+        val newQuantity = getQuantity() + 1
+        setQuantity(newQuantity)
+    }
+
+    private fun onDecrementQuantityButtonClick() {
+        val newQuantity = getQuantity() - 1
+        setQuantity(newQuantity)
     }
 
     private fun getQuantity(): Int {
@@ -71,16 +93,31 @@ class ProductActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initView() {
-        setQuantity(CartConstants.DEF_PRODUCT_QUANTITY)
+        increment_quantity_button.setOnClickListener { onIncrementQuantityButtonClick() }
+        decrement_quantity_button.setOnClickListener { onDecrementQuantityButtonClick() }
+        add_to_cart_button.setOnClickListener { onAddToCartButtonClick() }
+    }
+
+    private fun update() {
         product_name_text.text = product?.name
         product_color_text.text = product?.color.toString()
         product_price_text.text = product?.listPrice.toString()
 
         product_size_text.text = "Grande"
         product_weight_text.text = "100lb"
-        increment_quantity_button.setOnClickListener { onIncrementQuantityButtonClick() }
-        decrement_quantity_button.setOnClickListener { onDecrementQuantityButtonClick() }
-        add_to_cart_button.setOnClickListener(this)
+        updateProductQuantity()
+    }
+
+    private fun updateProductQuantity() {
+        val cart = getCart()
+        val productCartItem: CartItem? = product?.let { cart.findItemOf(it) }
+
+        if (productCartItem != null) {
+            setQuantity(productCartItem.quantity)
+        }
+        else {
+            setQuantity(CartConstants.DEF_PRODUCT_QUANTITY)
+        }
     }
 
     private fun startCheckoutActivity() {
@@ -89,17 +126,17 @@ class ProductActivity : AppCompatActivity(), View.OnClickListener {
         startActivity(intent)
     }
 
-    private fun onIncrementQuantityButtonClick() {
-        val newQuantity = getQuantity() + 1
-        setQuantity(newQuantity)
-    }
-
-    private fun onDecrementQuantityButtonClick() {
-        val newQuantity = getQuantity() - 1
-        setQuantity(newQuantity)
-    }
-
     private fun navigateBack() {
         onBackPressed()
+    }
+
+    private fun getCart(): Cart {
+        val repository = AppCartRepository(this)
+        return try {
+            repository.get()
+        } catch (e: Exception) {
+            repository.set(Cart())
+            Cart()
+        }
     }
 }
