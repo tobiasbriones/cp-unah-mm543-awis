@@ -164,7 +164,7 @@ class MainActivity : AppCompatActivity(),
             credentials.name,
             "",
             "",
-            "",
+            "${credentials.name}@gmail.com",
             credentials.password
         )
         val isLoginValid = CustomerLogInService().logIn(customer)
