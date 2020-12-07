@@ -11,9 +11,12 @@
 
 package com.mm543.awis.domain.model
 
+import java.io.Serializable
+
 data class Customer(
     val firstName: String,
     val middleName: String,
     val lastName: String,
-    val emailAddress: String
-)
+    val emailAddress: String,
+    val password: String
+) : Serializable
