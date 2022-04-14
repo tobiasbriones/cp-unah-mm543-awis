@@ -1,6 +1,9 @@
 # Course Project at UNAH-MM543: AWIS
 
-[![License](https://img.shields.io/github/license/TobiasBriones-Team/course.mm543.awis)](https://github.com/TobiasBriones-Team/course.mm543.awis/blob/main/LICENSE)
+[![GitHub Repository](https://img.shields.io/static/v1?label=GITHUB&message=REPOSITORY&labelColor=555&color=0277bd&style=for-the-badge&logo=GITHUB)](https://github.com/tobiasbriones/cp-unah-mm543-awis)
+
+[![Project GitHub License](https://img.shields.io/github/license/tobiasbriones/cp-unah-mm543-awis.svg?style=flat-square)](https://github.com/tobiasbriones/cp-unah-mm543-awis/blob/main/LICENSE)
+
 
 Android app development of AWIS: Adventure Works Information Systems based on the MS SQLServer Adventure Works database.
 
