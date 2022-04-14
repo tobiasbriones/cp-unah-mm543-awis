@@ -10,7 +10,7 @@ AWIS: Adventure Works Information Systems, Android App
 
 Created for the MM543-0900-3-2020 course.
 
-Team: [Tobias Briones](https://github.com/TobiasBriones), [Juan Varela](mailto:abbie.rubin969@gmail.com).
+Team: [Tobias Briones](https://github.com/tobiasbriones), Juan Varela.
 
 #### Contribution Report
 
