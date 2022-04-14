@@ -16,7 +16,11 @@ Team: [Tobias Briones](https://github.com/TobiasBriones), [Juan Varela](mailto:a
 
 Tobias Briones: Project Lead, main contributor.
 
-Juan Varela: Project resources assistant, contributed to the creation of the [SRS](https://github.com/TobiasBriones-Team/course.mm543.awis/blob/main/docs/pdf/awis-android-srs.pdf) and [GUI-Mockups](https://github.com/TobiasBriones-Team/course.mm543.awis/blob/main/docs/pdf/awis-android-gui-mockups.pdf) documents in an early stage of the project.
+Juan Varela: Project resources assistant, contributed to the creation of the [SRS](docs/pdf/awis-android-srs.pdf) and [GUI-Mockups](docs/pdf/awis-android-gui-mockups.pdf) documents in an early stage of the project.
+
+## Contribute
+
+I accept contributions to finish this project. I wrote an MVC app to make the experiment to move to MVVM, so take that into acount. It would also be good to migrate to Compose after all. Contact me on Twitter or Linked In if you're intersted in the project. This would help to get expirience on developing Android apps.
 
 ## License
 
